@@ -177,20 +177,16 @@ class WorkoutsTableViewController: UITableViewController {
       fatalError("CellForRowAtIndexPath should never get called if there are no workouts")
     }
 
-    //1. Get a cell to display the workout in.
-    let cell = tableView.dequeueReusableCell(withIdentifier: prancerciseWorkoutCellID,
-                                             for: indexPath)
-
-    //2. Get the workout corresponding to this row.
+    let cell = tableView.dequeueReusableCell(withIdentifier: prancerciseWorkoutCellID, for: indexPath)
     let workout = workouts[indexPath.row]
-
-    //3. Show the workout's start date in the label.
     cell.textLabel?.text = dateFormatter.string(from: workout.startDate)
 
-    //4. Show the Calorie burn in the lower label.
-    if let caloriesBurned = workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) {
-      let formattedCalories = String(format: "CaloriesBurned: %.2f", caloriesBurned)
-      cell.detailTextLabel?.text = formattedCalories
+    if let totalDistance = workout.totalDistance?.doubleValue(for: HKUnit.meter()){
+      let totalTime = workout.duration
+      let displayTime = stringFromTimeInterval(interval: totalTime)
+      let displayText = String(format: "Distance: %.2fkm - Duration: \(displayTime)", totalDistance / 1000)
+
+      cell.detailTextLabel?.text = displayText
     } else {
       cell.detailTextLabel?.text = nil
     }
@@ -217,5 +213,14 @@ class WorkoutsTableViewController: UITableViewController {
 
       print("HealthKit Successfully Authorized.")
     }
+  }
+
+  func stringFromTimeInterval(interval: Double) -> String {
+
+    let hours = (Int(interval) / 3600)
+    let minutes = Int(interval / 60) - Int(hours * 60)
+    let seconds = Int(interval) - (Int(interval / 60) * 60)
+
+    return String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
   }
 }
