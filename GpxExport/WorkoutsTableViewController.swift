@@ -32,7 +32,7 @@ class WorkoutsTableViewController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.clearsSelectionOnViewWillAppear = false
+    self.refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
     authorizeHealthKit()
   }
 
@@ -45,8 +45,20 @@ class WorkoutsTableViewController: UITableViewController {
 
     workoutStore.loadWorkouts() { (workouts, error) in
       self.workouts = workouts
-      self.tableView.reloadData()
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }
+  }
+
+  @objc func handleRefresh(refreshControl: UIRefreshControl) {
+    // Do some reloading of data and update the table view's data source
+    // Fetch more objects from a web service, for example...
+
+    // Simply adding an object to the data source for this example
+    reloadWorkouts()
+    self.tableView.reloadData()
+    refreshControl.endRefreshing()
   }
 
   //MARK: UITableView DataSource
@@ -186,4 +198,26 @@ class WorkoutsTableViewController: UITableViewController {
 
     return cell
   }
+
+    private func authorizeHealthKit() {
+
+        HealthKitSetupAssistant.authorizeHealthKit { (authorized, error) in
+
+            guard authorized else {
+
+                let baseMessage = "HealthKit Authorization Failed"
+
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+
+                return
+            }
+
+            print("HealthKit Successfully Authorized.")
+        }
+
+    }
 }
