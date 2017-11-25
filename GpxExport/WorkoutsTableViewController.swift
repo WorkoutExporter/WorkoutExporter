@@ -25,9 +25,9 @@ class WorkoutsTableViewController: UITableViewController {
   }()
 
   lazy var filenameDateFormatter: DateFormatter = {
-    let formatter = DateFormatter();
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd hh.mm.ss"
-    return formatter;
+    return formatter
   }()
 
   override func viewDidLoad() {
@@ -77,17 +77,17 @@ class WorkoutsTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath);
+        print(indexPath)
         guard let workouts = self.workouts else {
-            return;
+            return
         }
 
         if (indexPath.row >= workouts.count){
-            return;
+            return
         }
 
         print(indexPath.row)
-        let workout = workouts[indexPath.row];
+        let workout = workouts[indexPath.row]
         let workout_name: String = {
             switch workout.workoutActivityType {
                 case .cycling: return "Cycle"
@@ -106,12 +106,12 @@ class WorkoutsTableViewController: UITableViewController {
         let file: FileHandle
 
         do {
-            let manager = FileManager.default;
+            let manager = FileManager.default
             if manager.fileExists(atPath: targetURL.path){
                 try manager.removeItem(atPath: targetURL.path)
             }
             print(manager.createFile(atPath: targetURL.path, contents: Data()))
-            file = try FileHandle(forWritingTo: targetURL);
+            file = try FileHandle(forWritingTo: targetURL)
         }catch let err {
             print(err)
             return
@@ -121,15 +121,15 @@ class WorkoutsTableViewController: UITableViewController {
             (rates, error) in
 
             guard let keyedRates = rates, error == nil else {
-                print(error as Any);
+                print(error as Any)
                 return
             }
 
             let iso_formatter = ISO8601DateFormatter()
-            var current_heart_rate_index = 0;
-            var current_hr: Double = -1;
+            var current_heart_rate_index = 0
+            var current_hr: Double = -1
             let bpm_unit = HKUnit(from: "count/min")
-            var hr_string = "";
+            var hr_string = ""
             file.write(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"Apple Workouts (via pilif's hack of the week)\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.topografix.com/GPX/1/1\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\" xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\"><trk><name><![CDATA[\(workout_title)]]></name><time>\(iso_formatter.string(from: workout.startDate))</time><trkseg>"
                         .data(using: .utf8)!
@@ -138,7 +138,7 @@ class WorkoutsTableViewController: UITableViewController {
             self.workoutStore.route(for: workouts[indexPath.row]){
                 (maybe_locations, done, error) in
                 guard let locations = maybe_locations, error == nil else {
-                    print(error as Any);
+                    print(error as Any)
                     file.closeFile()
                     return
                 }
@@ -146,7 +146,7 @@ class WorkoutsTableViewController: UITableViewController {
                 for location in locations {
                     while (current_heart_rate_index < keyedRates.count) && (location.timestamp > keyedRates[current_heart_rate_index].startDate) {
                         current_hr = keyedRates[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
-                        current_heart_rate_index += 1;
+                        current_heart_rate_index += 1
                         hr_string = "<extensions><gpxtpx:TrackPointExtension><gpxtpx:hr>\(current_hr)</gpxtpx:hr></gpxtpx:TrackPointExtension></extensions>"
                     }
 
@@ -168,8 +168,7 @@ class WorkoutsTableViewController: UITableViewController {
                     self.present(activityViewController, animated: true, completion: nil)
                 }
             }
-
-        };
+        }
     }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
