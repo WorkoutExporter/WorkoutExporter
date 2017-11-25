@@ -1,0 +1,10 @@
+* GpxExport
+
+[[./GpxExport.png]]
+
+** Objective
+*** Export Workouts recorded by Apple Watch
+    Exported files could be imported to local or online fitness analytic software.
+** License
+   GpxExport is currently distributed under MIT license. 
+   There might be a switch to a GNU license in the future
