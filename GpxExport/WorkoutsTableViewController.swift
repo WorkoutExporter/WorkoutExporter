@@ -44,7 +44,9 @@ class WorkoutsTableViewController: UITableViewController {
   func reloadWorkouts() {
 
     workoutStore.loadWorkouts() { (workouts, error) in
-      self.workouts = workouts
+      if let appleWorkouts = workouts?.filter({$0.sourceRevision.description.contains("com.apple.health")}){
+        self.workouts = appleWorkouts
+      }
       DispatchQueue.main.async {
         self.tableView.reloadData()
       }
@@ -159,6 +161,7 @@ class WorkoutsTableViewController: UITableViewController {
     </trkseg>
   </trk>
 </gpx>
+
 """.data(using: .utf8)!)
           file.closeFile()
 
