@@ -33,6 +33,7 @@ class WorkoutsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.clearsSelectionOnViewWillAppear = false
+    authorizeHealthKit()
   }
 
   override func viewWillAppear(_ animated: Bool) {

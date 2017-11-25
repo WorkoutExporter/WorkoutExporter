@@ -52,7 +52,6 @@
 			isa = PBXGroup;
 			children = (
 				76489E411F59A18200E4094E /* WorkoutsTableViewController.swift */,
-				76489E3D1F59A16300E4094E /* MasterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -178,7 +177,6 @@
 			files = (
 				76489E4D1F59A19500E4094E /* HealthKitSetupAssistant.swift in Sources */,
 				76489E4B1F59A19500E4094E /* WorkoutDataStore.swift in Sources */,
-				76489E3E1F59A16300E4094E /* MasterViewController.swift in Sources */,
 				76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */,
 				76489E421F59A18200E4094E /* WorkoutsTableViewController.swift in Sources */,
 			);
