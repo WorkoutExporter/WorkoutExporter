@@ -58,7 +58,7 @@ class WorkoutDataStore {
                 completion([CLLocation](), true, nil)
                 return;
             }
-            var allDone = 0
+            var sampleCounter = 0
 
             for routeSample: HKWorkoutRoute in routeSamples {
                 
@@ -72,8 +72,8 @@ class WorkoutDataStore {
                     }
 
                     if done {
-                        allDone += 1
-                        if allDone != routeSamples.count {
+                        sampleCounter += 1
+                        if sampleCounter != routeSamples.count {
                             DispatchQueue.main.async {
                                 completion(locationResults, false, error)
                             }
