@@ -10,12 +10,14 @@ class WorkoutDataStore {
     
     public func heartRate(for workout: HKWorkout, completion: @escaping (([HKQuantitySample]?, Error?) -> Swift.Void)){
         var allSamples = Array<HKQuantitySample>()
-        
+
+
         let hrType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        let p = HKQuery.predicateForObjects(from: workout)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
 
-        let heartRateQuery = HKSampleQuery(sampleType: hrType, predicate: p, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) {
+        let predicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: HKQueryOptions.strictStartDate)
+
+        let heartRateQuery = HKSampleQuery(sampleType: hrType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) {
             (query, samples, error) in
             
             guard let heartRateSamples: [HKQuantitySample] = samples as? [HKQuantitySample], error == nil else {
