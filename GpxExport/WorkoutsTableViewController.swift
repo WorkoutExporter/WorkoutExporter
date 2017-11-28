@@ -122,7 +122,7 @@ class WorkoutsTableViewController: UITableViewController {
     workoutStore.heartRate(for: workouts[indexPath.row]){
       (rates, error) in
 
-      guard let keyedRates = rates, error == nil else {
+      guard let heartRateSamples = rates, error == nil else {
         print(error as Any)
         return
       }
@@ -146,8 +146,8 @@ class WorkoutsTableViewController: UITableViewController {
         }
 
         for location in locations {
-          while (current_heart_rate_index < keyedRates.count) && (location.timestamp > keyedRates[current_heart_rate_index].startDate) {
-            current_hr = keyedRates[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
+          while (current_heart_rate_index < heartRateSamples.count) && (location.timestamp > heartRateSamples[current_heart_rate_index].startDate) {
+            current_hr = heartRateSamples[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
             current_heart_rate_index += 1
             hr_string = self.gpxHeartRate(current_hr: current_hr)
           }
