@@ -138,7 +138,7 @@ class WorkoutsTableViewController: UITableViewController {
       }
 
       self.workoutStore.route(for: workouts[indexPath.row]){
-        (maybe_locations, done, error) in
+        (maybe_locations, error) in
         guard let locations = maybe_locations, error == nil else {
           print(error as Any)
           file.closeFile()
@@ -154,10 +154,8 @@ class WorkoutsTableViewController: UITableViewController {
           if let trackpoint = self.gpxTrackPoint(location: location, hr_string: hr_string).data(using: .utf8) {
             file.write(trackpoint)
           }
-
         }
-        if (done){
-          file.write("""
+        file.write("""
     </trkseg>
   </trk>
 </gpx>
@@ -174,7 +172,7 @@ class WorkoutsTableViewController: UITableViewController {
           self.present(activityViewController, animated: true, completion: nil)
         }
       }
-    }
+
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
