@@ -40,6 +40,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Qr6-o8-bAS" kind="showDetail" id="2Ch-P8-qYN"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -49,12 +52,32 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Workouts" id="k82-iG-bPt"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="EZL-FJ-PnB">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ll-uv-Ohm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1704.8" y="399.85007496251876"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="e5N-qh-lq9">
+            <objects>
+                <viewController id="Nin-8U-k0R" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2SA-kM-SCd"/>
+                        <viewControllerLayoutGuide type="bottom" id="xDS-jY-Bjw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vC9-rE-F0Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jtr-8W-XmD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pr1-so-f7I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3345" y="399"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="obA-Sh-LHV">
@@ -73,6 +96,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bF9-se-rhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="703" y="400"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mi3-Xe-MyL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qr6-o8-bAS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZF0-1X-b7T">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nin-8U-k0R" kind="relationship" relationship="rootViewController" id="nmH-W2-eAY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QpN-Uc-6s0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2532.8000000000002" y="399.40029985007499"/>
         </scene>
     </scenes>
 </document>
