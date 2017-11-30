@@ -85,7 +85,9 @@
 				76FC8A651F59A0130062E8EF /* Products */,
 				76FC8A791F59A0AB0062E8EF /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		76FC8A651F59A0130062E8EF /* Products */ = {
 			isa = PBXGroup;
@@ -148,7 +150,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = "Philip Hofstetter";
+				ORGANIZATIONNAME = "Mario Martelli";
 				TargetAttributes = {
 					76FC8A631F59A0130062E8EF = {
 						CreatedOnToolsVersion = 9.0;
@@ -341,10 +343,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GpxExport/GpxExport.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R9U6Q6F846;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				INFOPLIST_FILE = GpxExport/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.pilif.apps.WorkoutGpxExport;
+				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.WorkoutGpxExport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -357,10 +359,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GpxExport/GpxExport.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R9U6Q6F846;
+				DEVELOPMENT_TEAM = 9VWR9JYXC6;
 				INFOPLIST_FILE = GpxExport/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.pilif.apps.WorkoutGpxExport;
+				PRODUCT_BUNDLE_IDENTIFIER = de.schnuddelhuddel.WorkoutGpxExport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
