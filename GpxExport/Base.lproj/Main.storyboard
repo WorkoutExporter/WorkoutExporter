@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrancerciseWorkoutCell" textLabel="TU6-OX-29m" detailTextLabel="p8B-IY-yyF" style="IBUITableViewCellStyleSubtitle" id="nbf-fd-KyC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SCHtableCellID" textLabel="TU6-OX-29m" detailTextLabel="p8B-IY-yyF" style="IBUITableViewCellStyleSubtitle" id="nbf-fd-KyC">
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nbf-fd-KyC" id="03f-IZ-xKU">
@@ -40,9 +40,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Qr6-o8-bAS" kind="showDetail" id="2Ch-P8-qYN"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
