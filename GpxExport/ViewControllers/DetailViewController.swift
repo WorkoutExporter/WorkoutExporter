@@ -21,10 +21,10 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
   }()
 
 
-  @IBOutlet weak var displayTitle: UILabel!
-
   @IBOutlet weak var displayName: UILabel!
 
+  @IBOutlet weak var displayDuration: UILabel!
+  @IBOutlet weak var displayDistance: UILabel!
   @IBOutlet weak var mapView: MKMapView!
 
   var overlay = MKPolyline()
@@ -49,9 +49,6 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
 
   override func viewWillAppear(_ animated: Bool) {
 
-
-    displayTitle.text = hkWorkout.debugDescription
-
     workoutStore.heartRate(for: hkWorkout){
       (rates, error) in
 
@@ -69,7 +66,9 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
 
         self.workout = Workout(workout: self.hkWorkout, route: locations, heartRate: heartRateSamples)
         DispatchQueue.main.async {
-          self.displayName.text = "\(self.workout!.name) - \(heartRateSamples.count)"
+          self.displayName.text = "\(self.workout!.name)"
+          self.displayDistance.text = String(format: "%.2f km", (self.hkWorkout.totalDistance?.doubleValue(for: HKUnit.meter()))! / 1000)
+          self.displayDuration.text = String(format: "%.2f min", self.hkWorkout.duration / 60)
           if let wk = self.workout {
             self.mapView.add(wk.poly)
             var region = MKCoordinateRegionForMapRect(wk.poly.boundingMapRect)
