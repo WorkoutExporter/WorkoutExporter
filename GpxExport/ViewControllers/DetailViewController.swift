@@ -8,8 +8,9 @@
 
 import UIKit
 import HealthKit
+import MapKit
 
-class WorkoutDetailViewController: UIViewController {
+class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
 
   var hkWorkout: HKWorkout!
   var workout: Workout?
@@ -23,6 +24,10 @@ class WorkoutDetailViewController: UIViewController {
   @IBOutlet weak var displayTitle: UILabel!
 
   @IBOutlet weak var displayName: UILabel!
+
+  @IBOutlet weak var mapView: MKMapView!
+
+  var overlay = MKPolyline()
 
   @IBAction func sharingAsGPX(_ sender: Any) {
     if let targetURL = workout?.writeFile() {
@@ -38,6 +43,7 @@ class WorkoutDetailViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    mapView.delegate = self
     // Do any additional setup after loading the view, typically from a nib.
   }
 
@@ -64,9 +70,27 @@ class WorkoutDetailViewController: UIViewController {
         self.workout = Workout(workout: self.hkWorkout, route: locations, heartRate: heartRateSamples)
         DispatchQueue.main.async {
           self.displayName.text = "\(self.workout!.name) - \(heartRateSamples.count)"
+          if let wk = self.workout {
+            self.mapView.add(wk.poly)
+            var region = MKCoordinateRegionForMapRect(wk.poly.boundingMapRect)
+            region.span.latitudeDelta *= 1.2   // Increase span by 20% to add some margin
+            region.span.longitudeDelta *= 1.2
+            self.mapView.setRegion(region, animated: false)
+          }
         }
       }
     }
+  }
+
+
+  // MARK: Map View Methods
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    let pr = MKPolylineRenderer(overlay: overlay)
+    if overlay is MKPolyline {
+      pr.strokeColor = UIColor.blue.withAlphaComponent(0.5);
+      pr.lineWidth = 3
+    }
+    return pr;
   }
 
   override func didReceiveMemoryWarning() {

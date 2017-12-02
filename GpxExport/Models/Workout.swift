@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import HealthKit
+import MapKit
 
 struct Workout {
   private var hkWorkout: HKWorkout
@@ -35,6 +36,13 @@ struct Workout {
 
     return "\(activityType) - \(formatter.string(from: startDate))"
   }
+
+  var poly: MKPolyline {
+    let coordinates = route.map{$0.coordinate}
+    let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+    return polyline
+  }
+
 
   init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
     self.route = route
