@@ -6,6 +6,9 @@
 *** Export Workouts recorded by Apple Watch
     For the time beeing workouts are exported into GPX files.
     Exported files could be imported to local or online fitness analytic software.
+** History
+   This project started as a fork I made from @pilif. Which itself was based on
+   this [[https://www.raywenderlich.com/159019/healthkit-tutorial-swift-getting-started][tutorial]].
 ** License
    GpxExport is currently distributed under MIT license. 
    There might be a switch to a GNU license in the future
