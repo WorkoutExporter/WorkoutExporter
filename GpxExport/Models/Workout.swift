@@ -68,10 +68,12 @@ struct Workout {
 
     let fileName = "\(formatter.string(from: startDate)) - \(activityType)"
 
-    let file: FileHandle
     let targetURL = URL(fileURLWithPath: NSTemporaryDirectory())
       .appendingPathComponent(fileName)
       .appendingPathExtension("gpx")
+
+    DispatchQueue.global(qos: .background).async {
+      let file: FileHandle
 
     do {
       let manager = FileManager.default
@@ -82,17 +84,17 @@ struct Workout {
       file = try FileHandle(forWritingTo: targetURL)
     }catch let err {
       print(err)
-      return nil
+      return
     }
 
-    if let header = self.gpxHeader(title: name, startDate: startDate).data(using: .utf8) {
+    if let header = self.gpxHeader(title: self.name, startDate: self.startDate).data(using: .utf8) {
       file.write(header)
     }
 
-    for location in route {
+    for location in self.route {
 
-      while (current_heart_rate_index < heartRate.count) && (location.timestamp > heartRate[current_heart_rate_index].startDate) {
-        current_hr = heartRate[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
+      while (current_heart_rate_index < self.self.heartRate.count) && (location.timestamp > self.heartRate[current_heart_rate_index].startDate) {
+        current_hr = self.heartRate[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
         current_heart_rate_index += 1
         hr_string = self.gpxHeartRate(current_hr: current_hr)
       }
@@ -108,7 +110,7 @@ struct Workout {
   """.data(using: .utf8)!)
     file.closeFile()
 
-
+    }
     return targetURL
   }
 
