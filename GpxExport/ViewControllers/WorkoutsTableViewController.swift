@@ -1,11 +1,10 @@
 import UIKit
 import HealthKit
-import WatchKit
 
 class WorkoutsTableViewController: UITableViewController {
 
   private enum WorkoutsSegues: String {
-    case showCreateWorkout
+    case detailViewSegue
     case finishedCreatingWorkout
   }
 
@@ -70,46 +69,18 @@ class WorkoutsTableViewController: UITableViewController {
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-    guard let workouts = self.workouts else {
-      return
-    }
+  }
 
-    if (indexPath.row >= workouts.count){
-      return
-    }
-
-    let workout = workouts[indexPath.row]
-
-    workoutStore.heartRate(for: workouts[indexPath.row]){
-      (rates, error) in
-
-      guard let heartRateSamples = rates, error == nil else {
-        print(error as Any)
-        return
-      }
-
-      self.workoutStore.route(for: workouts[indexPath.row]){
-        (maybe_locations, error) in
-        guard let locations = maybe_locations, error == nil else {
-          print(error as Any)
-          return
-        }
-
-        let workout = Workout(workout: workout, route: locations, heartRate: heartRateSamples)
-        if let targetURL = workout.writeFile() {
-
-
-          let activityViewController = UIActivityViewController(
-            activityItems: [targetURL],
-            applicationActivities: nil)
-          if let popoverPresentationController = activityViewController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = nil
-          }
-          self.present(activityViewController, animated: true, completion: nil)
-        }
-      }
+  // MARK: Segues
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let idx = self.tableView.indexPathForSelectedRow,
+      let selectedWorkout = workouts?[idx.row],
+      let dvc = segue.destination.childViewControllers.first as? WorkoutDetailViewController {
+        dvc.hkWorkout = selectedWorkout
     }
   }
+
+  @IBAction func unwindToTableView(segue:UIStoryboardSegue) { }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 

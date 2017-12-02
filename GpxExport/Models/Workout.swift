@@ -14,31 +14,19 @@ struct Workout {
 //  private var hkWorkout: HKWorkout
   private var route:[CLLocation]
   private var heartRate:[HKQuantitySample]
-  private var name: String
+  var name: String
   private var startDate: Date
-
-  lazy var dateFormatter:DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.timeStyle = .short
-    formatter.dateStyle = .medium
-    return formatter
-  }()
-
-  lazy var filenameDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
-    return formatter
-  }()
-
 
   init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
     self.route = route
     self.heartRate = heartRate
+
     if let timestamp = route.first?.timestamp {
       self.startDate = timestamp
     } else {
       self.startDate = Date()
     }
+
     let workout_name: String = {
       switch workout.workoutActivityType {
       case .cycling: return "Cycle"
@@ -47,7 +35,12 @@ struct Workout {
       default: return "Workout"
       }
     }()
-    self.name = workout_name
+
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    formatter.dateStyle = .medium
+
+    self.name = "\(workout_name) - \(formatter.string(from: startDate))"
 
   }
 
@@ -73,7 +66,7 @@ struct Workout {
       if manager.fileExists(atPath: targetURL.path){
         try manager.removeItem(atPath: targetURL.path)
       }
-      print(manager.createFile(atPath: targetURL.path, contents: Data()))
+      manager.createFile(atPath: targetURL.path, contents: Data())
       file = try FileHandle(forWritingTo: targetURL)
     }catch let err {
       print(err)
@@ -81,10 +74,9 @@ struct Workout {
     }
 
     if let header = self.gpxHeader(title: name, startDate: startDate).data(using: .utf8) {
-      file.write(
-        header
-      )
+      file.write(header)
     }
+
     for location in route {
 
       while (current_heart_rate_index < heartRate.count) && (location.timestamp > heartRate[current_heart_rate_index].startDate) {
@@ -132,6 +124,11 @@ struct Workout {
   }
   private func gpxHeader(title: String, startDate: Date) -> String {
     let iso_formatter = ISO8601DateFormatter()
+
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    formatter.dateStyle = .medium
+
 
     return """
     <?xml version="1.0" encoding="UTF-8"?>

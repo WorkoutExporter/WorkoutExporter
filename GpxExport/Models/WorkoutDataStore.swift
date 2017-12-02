@@ -25,11 +25,10 @@ class WorkoutDataStore {
                 return
             }
             if (heartRateSamples.count == 0){
-                print("Got no heart rate samples. Too bad")
                 completion([HKQuantitySample](), nil);
                 return;
             }
-            print("Got \(heartRateSamples.count) heart rate samples");
+
             for heartRateSample in heartRateSamples {
                 allSamples.append(heartRateSample)
             }

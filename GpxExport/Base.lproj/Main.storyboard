@@ -40,6 +40,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Qr6-o8-bAS" kind="showDetail" identifier="detailViewSegue" id="CH5-cw-FVT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -57,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="1704.8" y="399.85007496251876"/>
         </scene>
-        <!--View Controller-->
+        <!--Workout Detail View Controller-->
         <scene sceneID="e5N-qh-lq9">
             <objects>
-                <viewController id="Nin-8U-k0R" sceneMemberID="viewController">
+                <viewController id="Nin-8U-k0R" customClass="WorkoutDetailViewController" customModule="GpxExport" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2SA-kM-SCd"/>
                         <viewControllerLayoutGuide type="bottom" id="xDS-jY-Bjw"/>
@@ -68,13 +71,40 @@
                     <view key="view" contentMode="scaleToFill" id="vC9-rE-F0Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0K-mW-mz2">
+                                <rect key="frame" x="16" y="101" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbg-tH-fBi">
+                                <rect key="frame" x="16" y="130" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jtr-8W-XmD"/>
+                    <navigationItem key="navigationItem" id="jtr-8W-XmD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="48V-aQ-MJq">
+                            <connections>
+                                <segue destination="h6w-1e-mDV" kind="unwind" unwindAction="unwindToTableViewWithSegue:" id="YUW-IH-Q2a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="displayName" destination="Hbg-tH-fBi" id="nW4-eL-4AP"/>
+                        <outlet property="displayTitle" destination="h0K-mW-mz2" id="0Bg-oc-YPL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pr1-so-f7I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="h6w-1e-mDV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3345" y="399"/>
+            <point key="canvasLocation" x="3344.8000000000002" y="398.95052473763121"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="obA-Sh-LHV">
