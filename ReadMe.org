@@ -1,9 +1,10 @@
-* GpxExport
+ [[./WorkoutExporter.png]] 
 
-[[./GpxExport.png]]
+* WorkoutExporter
 
 ** Objective
 *** Export Workouts recorded by Apple Watch
+    For the time beeing workouts are exported into GPX files.
     Exported files could be imported to local or online fitness analytic software.
 ** License
    GpxExport is currently distributed under MIT license. 
