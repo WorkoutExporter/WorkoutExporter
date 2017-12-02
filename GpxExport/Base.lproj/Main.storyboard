@@ -90,9 +90,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="jtr-8W-XmD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="48V-aQ-MJq">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="48V-aQ-MJq">
                             <connections>
                                 <segue destination="h6w-1e-mDV" kind="unwind" unwindAction="unwindToTableViewWithSegue:" id="YUW-IH-Q2a"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="1dm-pb-mRl">
+                            <connections>
+                                <action selector="sharingAsGPX:" destination="Nin-8U-k0R" id="NGQ-HE-hiO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -11,11 +11,30 @@ import CoreLocation
 import HealthKit
 
 struct Workout {
-//  private var hkWorkout: HKWorkout
+  private var hkWorkout: HKWorkout
   private var route:[CLLocation]
   private var heartRate:[HKQuantitySample]
-  var name: String
   private var startDate: Date
+
+  var activityType:String {
+    let activity: String = {
+      switch hkWorkout.workoutActivityType {
+      case .cycling: return "Cycle"
+      case .running: return "Run"
+      case .walking: return "Walk"
+      default: return "Workout"
+      }
+    }()
+    return activity
+  }
+
+  var name:String {
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    formatter.dateStyle = .medium
+
+    return "\(activityType) - \(formatter.string(from: startDate))"
+  }
 
   init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
     self.route = route
@@ -26,22 +45,7 @@ struct Workout {
     } else {
       self.startDate = Date()
     }
-
-    let workout_name: String = {
-      switch workout.workoutActivityType {
-      case .cycling: return "Cycle"
-      case .running: return "Run"
-      case .walking: return "Walk"
-      default: return "Workout"
-      }
-    }()
-
-    let formatter = DateFormatter()
-    formatter.timeStyle = .short
-    formatter.dateStyle = .medium
-
-    self.name = "\(workout_name) - \(formatter.string(from: startDate))"
-
+    self.hkWorkout = workout
   }
 
   func writeFile() -> URL? {
@@ -54,7 +58,7 @@ struct Workout {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
 
-    let fileName = "\(formatter.string(from: startDate)) - \(name)"
+    let fileName = "\(formatter.string(from: startDate)) - \(activityType)"
 
     let file: FileHandle
     let targetURL = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -128,7 +132,6 @@ struct Workout {
     let formatter = DateFormatter()
     formatter.timeStyle = .short
     formatter.dateStyle = .medium
-
 
     return """
     <?xml version="1.0" encoding="UTF-8"?>

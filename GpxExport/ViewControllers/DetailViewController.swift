@@ -23,6 +23,19 @@ class WorkoutDetailViewController: UIViewController {
   @IBOutlet weak var displayTitle: UILabel!
 
   @IBOutlet weak var displayName: UILabel!
+
+  @IBAction func sharingAsGPX(_ sender: Any) {
+    if let targetURL = workout?.writeFile() {
+      let activityViewController = UIActivityViewController(
+        activityItems: [targetURL],
+        applicationActivities: nil)
+      if let popoverPresentationController = activityViewController.popoverPresentationController {
+        popoverPresentationController.barButtonItem = nil
+      }
+      self.present(activityViewController, animated: true, completion: nil)
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -52,21 +65,8 @@ class WorkoutDetailViewController: UIViewController {
         DispatchQueue.main.async {
           self.displayName.text = "\(self.workout!.name) - \(heartRateSamples.count)"
         }
-
-
-
-        //        if let targetURL = workout.writeFile() {
-        //          let activityViewController = UIActivityViewController(
-        //            activityItems: [targetURL],
-        //            applicationActivities: nil)
-        //          if let popoverPresentationController = activityViewController.popoverPresentationController {
-        //            popoverPresentationController.barButtonItem = nil
-        //          }
-        //          self.present(activityViewController, animated: true, completion: nil)
-        //        }
       }
     }
-
   }
 
   override func didReceiveMemoryWarning() {
