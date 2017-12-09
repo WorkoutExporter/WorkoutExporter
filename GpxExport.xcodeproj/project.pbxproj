@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7448F1661FD08DAD0095B6B1 /* GpxWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1641FD08DAC0095B6B1 /* GpxWriter.swift */; };
 		7448F1671FD08DAD0095B6B1 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */; };
 		7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */; };
 		7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1691FD08DCB0095B6B1 /* Workout.swift */; };
 		7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */; };
 		7448F16F1FD1F3070095B6B1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F16E1FD1F3070095B6B1 /* DetailViewController.swift */; };
+		74A229731FDC17980059CB59 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A229721FDC17980059CB59 /* DateFormatting.swift */; };
 		74AC63E91FB844780028E37F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74AC63E81FB844780028E37F /* HealthKit.framework */; };
 		76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC8A671F59A0130062E8EF /* AppDelegate.swift */; };
 		76FC8A6D1F59A0130062E8EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6B1F59A0130062E8EF /* Main.storyboard */; };
@@ -22,12 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7448F1641FD08DAC0095B6B1 /* GpxWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GpxWriter.swift; path = GpxExport/Utilities/GpxWriter.swift; sourceTree = SOURCE_ROOT; };
 		7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthKitSetupAssistant.swift; path = GpxExport/Utilities/HealthKitSetupAssistant.swift; sourceTree = SOURCE_ROOT; };
 		7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDataStore.swift; path = GpxExport/Models/WorkoutDataStore.swift; sourceTree = SOURCE_ROOT; };
 		7448F1691FD08DCB0095B6B1 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = GpxExport/Models/Workout.swift; sourceTree = SOURCE_ROOT; };
 		7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutsTableViewController.swift; sourceTree = "<group>"; };
 		7448F16E1FD1F3070095B6B1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		74A229721FDC17980059CB59 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateFormatting.swift; path = GpxExport/Utilities/DateFormatting.swift; sourceTree = SOURCE_ROOT; };
 		74AC63E81FB844780028E37F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		76489E4F1F59A20200E4094E /* GpxExport.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GpxExport.entitlements; sourceTree = "<group>"; };
 		76FC8A641F59A0130062E8EF /* GpxExport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GpxExport.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,8 +65,8 @@
 		7448F1631FD08BB80095B6B1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				7448F1641FD08DAC0095B6B1 /* GpxWriter.swift */,
 				7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */,
+				74A229721FDC17980059CB59 /* DateFormatting.swift */,
 			);
 			name = Utilities;
 			path = "New Group1";
@@ -204,9 +204,9 @@
 			files = (
 				7448F1671FD08DAD0095B6B1 /* HealthKitSetupAssistant.swift in Sources */,
 				7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */,
+				74A229731FDC17980059CB59 /* DateFormatting.swift in Sources */,
 				7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */,
 				76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */,
-				7448F1661FD08DAD0095B6B1 /* GpxWriter.swift in Sources */,
 				7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */,
 				7448F16F1FD1F3070095B6B1 /* DetailViewController.swift in Sources */,
 			);
