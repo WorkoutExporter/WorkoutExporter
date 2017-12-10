@@ -134,9 +134,10 @@ class WorkoutsTableViewController: UITableViewController {
   // MARK: Segues
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let idx = self.tableView.indexPathForSelectedRow,
-      let selectedWorkout = workouts?[idx.row],
+      let section = tableSections?[idx.section],
+      let workout = workoutSections[section]?[idx.row],
       let dvc = segue.destination.childViewControllers.first as? WorkoutDetailViewController {
-        dvc.hkWorkout = selectedWorkout
+        dvc.hkWorkout = workout
     }
   }
 
