@@ -93,10 +93,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHJ-Da-6nM">
-                                <rect key="frame" x="16" y="214" width="343" height="238"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="YHJ-Da-6nM" secondAttribute="height" multiplier="49:34" id="g2f-hg-UQT"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="214" width="343" height="433"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbg-tH-fBi">
                                 <rect key="frame" x="16" y="72" width="343" height="21"/>
@@ -123,6 +120,7 @@
                             <constraint firstItem="KNo-SM-8OK" firstAttribute="width" secondItem="7JP-cD-Z3v" secondAttribute="width" id="0JG-df-O09"/>
                             <constraint firstItem="KNo-SM-8OK" firstAttribute="top" secondItem="7JP-cD-Z3v" secondAttribute="bottom" constant="8" id="1lD-o6-07T"/>
                             <constraint firstItem="7JP-cD-Z3v" firstAttribute="width" secondItem="Hbg-tH-fBi" secondAttribute="width" id="69O-4p-eSm"/>
+                            <constraint firstItem="xDS-jY-Bjw" firstAttribute="top" secondItem="YHJ-Da-6nM" secondAttribute="bottom" constant="20" id="7ki-ZZ-AYh"/>
                             <constraint firstItem="Hbg-tH-fBi" firstAttribute="centerX" secondItem="vC9-rE-F0Y" secondAttribute="centerX" id="8Me-vc-Cba"/>
                             <constraint firstItem="Hbg-tH-fBi" firstAttribute="trailing" secondItem="vC9-rE-F0Y" secondAttribute="trailingMargin" id="Dwk-gd-AWT"/>
                             <constraint firstItem="Hbg-tH-fBi" firstAttribute="top" secondItem="2SA-kM-SCd" secondAttribute="bottom" constant="8" id="EnY-32-71w"/>
