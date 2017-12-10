@@ -24,6 +24,8 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var displayName: UILabel!
 
   @IBOutlet weak var displayDuration: UILabel!
+  @IBOutlet weak var displayMaxHeart: UILabel!
+  @IBOutlet weak var displayAverageHeartRate: UILabel!
   @IBOutlet weak var displayDistance: UILabel!
   @IBOutlet weak var mapView: MKMapView!
 
@@ -67,8 +69,10 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
         self.workout = Workout(workout: self.hkWorkout, route: locations, heartRate: heartRateSamples)
         DispatchQueue.main.async {
           self.displayName.text = "\(self.workout!.name)"
-          self.displayDistance.text = String(format: "%.2f km", (self.hkWorkout.totalDistance?.doubleValue(for: HKUnit.meter()))! / 1000)
-          self.displayDuration.text = String(format: "%.2f min", self.hkWorkout.duration / 60)
+          self.displayDistance.text = String(format: "Dist: %.2f km", (self.hkWorkout.totalDistance?.doubleValue(for: HKUnit.meter()))! / 1000)
+          self.displayDuration.text = String(format: "Dur: %.2f min", self.hkWorkout.duration / 60)
+          self.displayMaxHeart.text = String(format: "Max: %d bpm", (self.workout?.maxHeartRate)! )
+          self.displayAverageHeartRate.text = String(format: "Avg: %d bpm", (self.workout?.averageHeartRate)!)
           if let wk = self.workout {
             self.mapView.add(wk.poly)
             var region = MKCoordinateRegionForMapRect(wk.poly.boundingMapRect)

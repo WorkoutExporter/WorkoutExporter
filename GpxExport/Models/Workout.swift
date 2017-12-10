@@ -43,6 +43,24 @@ struct Workout {
     return polyline
   }
 
+  var maxHeartRate: Int {
+    let bpm_unit = HKUnit(from: "count/min")
+    if let maxHeart = heartRate.map({$0.quantity.doubleValue(for: bpm_unit)}).max() {
+      return Int(maxHeart)
+    } else {
+      return 0
+    }
+  }
+
+  private var summedHeartRate: Double {
+    let bpm_unit = HKUnit(from: "count/min")
+    return heartRate.reduce(0.0, {$0 + $1.quantity.doubleValue(for: bpm_unit)})
+  }
+
+  var averageHeartRate: Int {
+    return Int(summedHeartRate / Double(heartRate.count))
+  }
+
 
   init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
     self.route = route
