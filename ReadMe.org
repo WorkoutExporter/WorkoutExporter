@@ -9,6 +9,8 @@
 ** History
    This project started as a fork I made from @pilif. Which itself was based on
    this [[https://www.raywenderlich.com/159019/healthkit-tutorial-swift-getting-started][tutorial]].
+** Icons
+   Current icons are [[https://www.freepik.com/free-vector/sports-icons_1077033.htm][designed by Freepik]]
 ** License
    GpxExport is currently distributed under MIT license. 
    There might be a switch to a GNU license in the future

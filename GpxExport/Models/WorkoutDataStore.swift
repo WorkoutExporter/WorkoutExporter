@@ -93,7 +93,6 @@ class WorkoutDataStore {
                         }
                     }
                 }
-                
                 self.healthStore.execute(locationQuery)
             }
         }
@@ -128,5 +127,4 @@ class WorkoutDataStore {
         }
         healthStore.execute(query)
     }
-    
 }

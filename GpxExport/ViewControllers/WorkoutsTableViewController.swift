@@ -1,6 +1,13 @@
 import UIKit
 import HealthKit
 
+class SCHTableCell: UITableViewCell {
+
+  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var detailLabel: UILabel!
+  @IBOutlet weak var imageLabel: UIImageView!
+}
+
 class WorkoutsTableViewController: UITableViewController {
 
   private enum WorkoutsSegues: String {
@@ -13,7 +20,8 @@ class WorkoutsTableViewController: UITableViewController {
   }()
 
   private var workouts: [HKWorkout]?
-
+  private var tableSections: [String]?
+  private var workoutSections:[String: [HKWorkout]] = [:]
   private let tableCell = "SCHtableCellID"
 
   lazy var dateFormatter:DateFormatter = {
@@ -39,6 +47,18 @@ class WorkoutsTableViewController: UITableViewController {
     workoutStore.loadWorkouts() { (workouts, error) in
       if let appleWorkouts = workouts?.filter({$0.sourceRevision.description.contains("com.apple.health")}){
         self.workouts = appleWorkouts
+        self.tableSections = []
+
+        self.workoutSections = [:]
+        for workout in appleWorkouts {
+          let key = "\(workout.startDate.year) -- \(workout.startDate.month)"
+          if self.workoutSections[key] == nil {
+            self.workoutSections[key] = [workout]
+            self.tableSections?.append(key)
+          } else {
+            self.workoutSections[key]?.append(workout)
+          }
+        }
       }
       DispatchQueue.main.async {
         self.tableView.reloadData()
@@ -54,18 +74,58 @@ class WorkoutsTableViewController: UITableViewController {
 
   //MARK: UITableView DataSource
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
+    return workoutSections.count
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-    guard let workouts = workouts else {
+    if let key = tableSections?[section], let workouts = workoutSections[key]{
+      return workouts.count
+    } else {
       return 0
     }
-
-    return workouts.count
   }
 
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath) as! SCHTableCell
+
+    if let section = tableSections?[indexPath.section] {
+
+      let workout = workoutSections[section]![indexPath.row]
+      cell.titleLabel.text = dateFormatter.string(from: workout.startDate)
+
+      if let totalDistance = workout.totalDistance?.doubleValue(for: HKUnit.meter()){
+        let totalTime = workout.duration
+        let displayTime = stringFromTimeInterval(interval: totalTime)
+        let displayText = String(format: "Distance: %.2fkm - Duration: \(displayTime)", totalDistance / 1000)
+
+        cell.detailLabel.text = displayText
+      } else {
+        cell.detailLabel.text = nil
+      }
+
+      switch workout.workoutActivityType {
+        case .running: cell.imageLabel.image = #imageLiteral(resourceName: "Run")
+        case .cycling: cell.imageLabel.image = #imageLiteral(resourceName: "Cycle")
+        case .swimming: cell.imageLabel.image = #imageLiteral(resourceName: "Swim")
+        case .walking: cell.imageLabel.image = #imageLiteral(resourceName: "Still")
+        default: cell.imageLabel.image = #imageLiteral(resourceName: "Default")
+      }
+
+      return cell
+    }
+    return cell
+  }
+
+
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if let title = tableSections?[section] {
+      return title
+    } else {
+      return ""
+    }
+  }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -74,36 +134,15 @@ class WorkoutsTableViewController: UITableViewController {
   // MARK: Segues
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let idx = self.tableView.indexPathForSelectedRow,
-      let selectedWorkout = workouts?[idx.row],
+      let section = tableSections?[idx.section],
+      let workout = workoutSections[section]?[idx.row],
       let dvc = segue.destination.childViewControllers.first as? WorkoutDetailViewController {
-        dvc.hkWorkout = selectedWorkout
+        dvc.hkWorkout = workout
     }
   }
 
   @IBAction func unwindToTableView(segue:UIStoryboardSegue) { }
 
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-    guard let workouts = workouts else {
-      fatalError("CellForRowAtIndexPath should never get called if there are no workouts")
-    }
-
-    let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath)
-    let workout = workouts[indexPath.row]
-    cell.textLabel?.text = dateFormatter.string(from: workout.startDate)
-
-    if let totalDistance = workout.totalDistance?.doubleValue(for: HKUnit.meter()){
-      let totalTime = workout.duration
-      let displayTime = stringFromTimeInterval(interval: totalTime)
-      let displayText = String(format: "Distance: %.2fkm - Duration: \(displayTime)", totalDistance / 1000)
-
-      cell.detailTextLabel?.text = displayText
-    } else {
-      cell.detailTextLabel?.text = nil
-    }
-
-    return cell
-  }
 
   private func authorizeHealthKit() {
 
