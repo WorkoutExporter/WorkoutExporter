@@ -58,8 +58,7 @@
 				7448F1691FD08DCB0095B6B1 /* Workout.swift */,
 				7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */,
 			);
-			name = Models;
-			path = "New Group";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7448F1631FD08BB80095B6B1 /* Utilities */ = {
@@ -68,8 +67,7 @@
 				7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */,
 				74A229721FDC17980059CB59 /* DateFormatting.swift */,
 			);
-			name = Utilities;
-			path = "New Group1";
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		76489E3C1F59A14100E4094E /* ViewControllers */ = {
