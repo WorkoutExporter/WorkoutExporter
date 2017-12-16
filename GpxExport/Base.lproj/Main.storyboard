@@ -14,7 +14,7 @@
         <scene sceneID="bhg-39-hVb">
             <objects>
                 <tableViewController id="6yE-k5-Ihl" customClass="WorkoutsTableViewController" customModule="GpxExport" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="87" sectionHeaderHeight="22" sectionFooterHeight="22" id="UZU-4K-x2Q">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="87" sectionHeaderHeight="22" sectionFooterHeight="22" id="UZU-4K-x2Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,7 +70,13 @@
                             <outlet property="delegate" destination="6yE-k5-Ihl" id="6z1-j4-RPc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Workouts" id="k82-iG-bPt"/>
+                    <navigationItem key="navigationItem" title="Workouts" id="k82-iG-bPt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="TrI-vu-i2z">
+                            <connections>
+                                <action selector="setEditTable:" destination="6yE-k5-Ihl" id="Oze-2Q-cUM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="EZL-FJ-PnB">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
