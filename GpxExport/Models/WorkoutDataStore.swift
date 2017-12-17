@@ -32,9 +32,7 @@ class WorkoutDataStore {
             for heartRateSample in heartRateSamples {
                 allSamples.append(heartRateSample)
             }
-            DispatchQueue.main.async {
                 completion(allSamples, nil)
-            }
         }
         healthStore.execute(heartRateQuery)
     }
@@ -65,9 +63,7 @@ class WorkoutDataStore {
                 let locationQuery: HKWorkoutRouteQuery = HKWorkoutRouteQuery(route: routeSample) { _, locationResults, done, error in
                     guard locationResults != nil else {
                         print("Error occured while querying for locations: \(error?.localizedDescription ?? "")")
-                        DispatchQueue.main.async {
                             completion(nil, error)
-                        }
                         return
                     }
 
@@ -82,9 +78,7 @@ class WorkoutDataStore {
                               routeLocations.append(contentsOf: locations)
                               let sortedLocations = routeLocations.sorted(by: {$0.timestamp < $1.timestamp})
 
-                            DispatchQueue.main.async {
                                 completion(sortedLocations, error)
-                              }
                             }
                         }
                     } else {
