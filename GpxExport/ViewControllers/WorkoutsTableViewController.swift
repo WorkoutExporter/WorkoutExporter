@@ -10,6 +10,8 @@ class SCHTableCell: UITableViewCell {
 
 class WorkoutsTableViewController: UITableViewController {
 
+  let group = DispatchGroup()
+
   private enum WorkoutsSegues: String {
     case detailViewSegue
     case finishedCreatingWorkout
@@ -131,7 +133,70 @@ class WorkoutsTableViewController: UITableViewController {
 
   }
 
+  @IBAction func setEditTable(_ sender: Any) {
+    if tableView.isEditing {
+      guard let selectedWorkouts = tableView.indexPathsForSelectedRows else {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        return
+      }
+      var workouts:[Workout] = []
+
+
+      for index in selectedWorkouts {
+
+        if let section = tableSections?[index.section],
+          let workout = workoutSections[section]?[index.row] {
+          group.enter()
+          workoutStore.heartRate(for: workout){
+            (rates, error) in
+            guard let heartRateSamples = rates, error == nil else {
+              print(error as Any)
+              return
+            }
+            self.workoutStore.route(for: workout){
+              (maybe_locations, error) in
+
+
+              guard let locations = maybe_locations, error == nil else {
+                print(error as Any)
+                return
+              }
+
+              workouts.append(Workout(workout: workout, route: locations, heartRate: heartRateSamples))
+              self.group.leave()
+            }
+          }
+        }
+      }
+      group.wait()
+      var targetURLs:[URL] = []
+      for workout in workouts {
+        if let targetURL = workout.writeFile() {
+          targetURLs.append(targetURL)
+        }
+      }
+      if targetURLs.count > 0 {
+        let activityViewController = UIActivityViewController(
+          activityItems: targetURLs,
+          applicationActivities: nil)
+        if let popoverPresentationController = activityViewController.popoverPresentationController {
+          popoverPresentationController.barButtonItem = nil
+        }
+        self.present(activityViewController, animated: true, completion: nil)
+      }
+    }
+    tableView.setEditing(!tableView.isEditing, animated: true)
+  }
+
+
   // MARK: Segues
+  override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    if tableView.isEditing {
+      return false
+    }
+    return true
+  }
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let idx = self.tableView.indexPathForSelectedRow,
       let section = tableSections?[idx.section],
