@@ -73,12 +73,16 @@ class WorkoutDetailViewController: UIViewController, MKMapViewDelegate {
           self.displayDuration.text = String(format: "Dur: %.2f min", self.hkWorkout.duration / 60)
           self.displayMaxHeart.text = String(format: "Max: %d bpm", (self.workout?.maxHeartRate)! )
           self.displayAverageHeartRate.text = String(format: "Avg: %d bpm", (self.workout?.averageHeartRate)!)
-          if let wk = self.workout {
+          if let wk = self.workout,
+            wk.poly.boundingMapRect.size.height > 0 {
             self.mapView.add(wk.poly)
             var region = MKCoordinateRegionForMapRect(wk.poly.boundingMapRect)
             region.span.latitudeDelta *= 1.2   // Increase span by 20% to add some margin
             region.span.longitudeDelta *= 1.2
             self.mapView.setRegion(region, animated: false)
+          }
+          else {
+            self.mapView.removeFromSuperview()
           }
         }
       }
