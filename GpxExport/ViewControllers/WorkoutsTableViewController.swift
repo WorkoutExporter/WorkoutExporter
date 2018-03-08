@@ -47,7 +47,14 @@ class WorkoutsTableViewController: UITableViewController {
   func reloadWorkouts() {
 
     workoutStore.loadWorkouts() { (workouts, error) in
-      if let appleWorkouts = workouts?.filter({$0.sourceRevision.description.contains("com.apple.health")}){
+      if let appleWorkouts = workouts?.filter({
+        if let filter = $0.sourceRevision.productType?.contains("Watch") {
+          return filter
+        } else {
+          return false
+        }
+
+      }){
         self.workouts = appleWorkouts
         self.tableSections = []
 
