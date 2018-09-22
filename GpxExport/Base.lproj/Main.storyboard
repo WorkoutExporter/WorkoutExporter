@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bsl-BH-UOm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bsl-BH-UOm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Workouts-->
         <scene sceneID="bhg-39-hVb">
@@ -103,9 +97,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Track found to display!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqT-8v-hSH">
-                                <rect key="frame" x="16" y="278" width="342" height="111"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Track found to display!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqT-8v-hSH">
+                                <rect key="frame" x="16" y="278" width="342" height="27.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -149,10 +142,12 @@
                             <constraint firstItem="7JP-cD-Z3v" firstAttribute="leading" secondItem="vC9-rE-F0Y" secondAttribute="leadingMargin" id="0CD-wh-gqg"/>
                             <constraint firstItem="KNo-SM-8OK" firstAttribute="width" secondItem="7JP-cD-Z3v" secondAttribute="width" id="0JG-df-O09"/>
                             <constraint firstItem="KNo-SM-8OK" firstAttribute="top" secondItem="7JP-cD-Z3v" secondAttribute="bottom" constant="8" id="1lD-o6-07T"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bqT-8v-hSH" secondAttribute="trailing" constant="1" id="3tZ-kB-u2u"/>
                             <constraint firstItem="7JP-cD-Z3v" firstAttribute="width" secondItem="Hbg-tH-fBi" secondAttribute="width" constant="-176" id="69O-4p-eSm"/>
                             <constraint firstItem="xDS-jY-Bjw" firstAttribute="top" secondItem="YHJ-Da-6nM" secondAttribute="bottom" constant="20" id="7ki-ZZ-AYh"/>
                             <constraint firstItem="Hbg-tH-fBi" firstAttribute="centerX" secondItem="vC9-rE-F0Y" secondAttribute="centerX" id="8Me-vc-Cba"/>
                             <constraint firstItem="7bW-dt-V1r" firstAttribute="leading" secondItem="Zs3-SV-4K3" secondAttribute="leading" id="9Bd-Pz-EXi"/>
+                            <constraint firstItem="bqT-8v-hSH" firstAttribute="top" secondItem="KNo-SM-8OK" secondAttribute="bottom" constant="127" id="AMY-2N-Waa"/>
                             <constraint firstItem="Zs3-SV-4K3" firstAttribute="top" secondItem="7JP-cD-Z3v" secondAttribute="top" id="Abk-rZ-5om"/>
                             <constraint firstItem="7bW-dt-V1r" firstAttribute="top" secondItem="KNo-SM-8OK" secondAttribute="top" id="BtA-mL-ZOi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7bW-dt-V1r" secondAttribute="trailing" constant="1" id="Dq3-bR-zwI"/>
@@ -162,6 +157,7 @@
                             <constraint firstItem="YHJ-Da-6nM" firstAttribute="top" secondItem="KNo-SM-8OK" secondAttribute="bottom" constant="63" id="L9u-L3-OM2"/>
                             <constraint firstItem="7JP-cD-Z3v" firstAttribute="top" secondItem="Hbg-tH-fBi" secondAttribute="bottom" constant="8" id="LVb-fc-lgA"/>
                             <constraint firstItem="Zs3-SV-4K3" firstAttribute="bottom" secondItem="7JP-cD-Z3v" secondAttribute="bottom" id="MRk-il-4sm"/>
+                            <constraint firstItem="bqT-8v-hSH" firstAttribute="leading" secondItem="vC9-rE-F0Y" secondAttribute="leadingMargin" id="Ztu-Qg-hHs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zs3-SV-4K3" secondAttribute="trailing" constant="1" id="gM8-p2-Ozo"/>
                             <constraint firstItem="YHJ-Da-6nM" firstAttribute="width" secondItem="KNo-SM-8OK" secondAttribute="width" constant="176" id="jDc-Yq-aXW"/>
                             <constraint firstItem="KNo-SM-8OK" firstAttribute="leading" secondItem="vC9-rE-F0Y" secondAttribute="leadingMargin" id="lJC-pm-pzo"/>

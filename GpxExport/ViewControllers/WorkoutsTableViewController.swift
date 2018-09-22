@@ -35,7 +35,7 @@ class WorkoutsTableViewController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+    self.refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControl.Event.valueChanged)
     authorizeHealthKit()
   }
 
@@ -208,7 +208,7 @@ class WorkoutsTableViewController: UITableViewController {
     if let idx = self.tableView.indexPathForSelectedRow,
       let section = tableSections?[idx.section],
       let workout = workoutSections[section]?[idx.row],
-      let dvc = segue.destination.childViewControllers.first as? WorkoutDetailViewController {
+      let dvc = segue.destination.children.first as? WorkoutDetailViewController {
         dvc.hkWorkout = workout
     }
   }
