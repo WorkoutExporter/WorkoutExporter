@@ -119,6 +119,7 @@ class WorkoutsTableViewController: UITableViewController {
         case .cycling: cell.imageLabel.image = #imageLiteral(resourceName: "Cycle")
         case .swimming: cell.imageLabel.image = #imageLiteral(resourceName: "Swim")
         case .walking: cell.imageLabel.image = #imageLiteral(resourceName: "Still")
+        case .hiking: cell.imageLabel.image = #imageLiteral(resourceName: "Hike")
         default: cell.imageLabel.image = #imageLiteral(resourceName: "Default")
       }
 
