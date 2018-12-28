@@ -26,19 +26,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XPy-PN-Gpc">
-                                            <rect key="frame" x="16" y="0.0" width="79" height="76"/>
+                                            <rect key="frame" x="16" y="21.5" width="44" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="XPy-PN-Gpc" secondAttribute="height" multiplier="79:76" id="3Dk-MR-Q5u"/>
+                                                <constraint firstAttribute="width" constant="44" id="Cah-L7-5iK"/>
+                                                <constraint firstAttribute="height" constant="44" id="nMq-AK-NCo"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOo-Jf-7h2">
-                                            <rect key="frame" x="103" y="11" width="230" height="21"/>
+                                            <rect key="frame" x="68" y="11" width="265" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tH9-rF-Q20">
-                                            <rect key="frame" x="103" y="44" width="230" height="17"/>
+                                            <rect key="frame" x="68" y="44" width="265" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -51,9 +52,8 @@
                                         <constraint firstItem="tH9-rF-Q20" firstAttribute="leading" secondItem="XPy-PN-Gpc" secondAttribute="trailing" constant="8" id="REY-I5-Imu"/>
                                         <constraint firstItem="tH9-rF-Q20" firstAttribute="trailing" secondItem="03f-IZ-xKU" secondAttribute="trailingMargin" id="cDI-KD-0RP"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="tH9-rF-Q20" secondAttribute="bottom" constant="15" id="dSD-KX-Ud0"/>
+                                        <constraint firstItem="XPy-PN-Gpc" firstAttribute="centerY" secondItem="03f-IZ-xKU" secondAttribute="centerY" id="gKh-13-7Fe"/>
                                         <constraint firstItem="OOo-Jf-7h2" firstAttribute="leading" secondItem="XPy-PN-Gpc" secondAttribute="trailing" constant="8" id="phu-z8-ajq"/>
-                                        <constraint firstItem="XPy-PN-Gpc" firstAttribute="top" secondItem="03f-IZ-xKU" secondAttribute="top" id="qNo-dJ-DaZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="XPy-PN-Gpc" secondAttribute="bottom" constant="10.5" id="y9K-z8-L33"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
