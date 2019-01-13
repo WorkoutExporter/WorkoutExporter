@@ -209,7 +209,7 @@ class WorkoutsTableViewController: UITableViewController {
     if let idx = self.tableView.indexPathForSelectedRow,
       let section = tableSections?[idx.section],
       let workout = workoutSections[section]?[idx.row],
-      let dvc = segue.destination.children.first as? WorkoutDetailViewController {
+      let dvc = segue.destination as? WorkoutDetailViewController {
         dvc.hkWorkout = workout
     }
   }
