@@ -206,11 +206,11 @@ class WorkoutsTableViewController: UITableViewController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let idx = self.tableView.indexPathForSelectedRow,
-      let section = tableSections?[idx.section],
-      let workout = workoutSections[section]?[idx.row],
-      let dvc = segue.destination as? WorkoutDetailViewController {
-        dvc.hkWorkout = workout
+    if let indexPath = self.tableView.indexPathForSelectedRow,
+      let section = tableSections?[indexPath.section],
+      let workout = workoutSections[section]?[indexPath.row],
+      let workoutDetailTableViewController = segue.destination as? WorkoutDetailTableViewController {
+        workoutDetailTableViewController.hkWorkout = workout
     }
   }
 
