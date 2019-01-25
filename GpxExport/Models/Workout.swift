@@ -13,8 +13,8 @@ import MapKit
 
 struct Workout {
   private var hkWorkout: HKWorkout
-  private var route:[CLLocation]
-  private var heartRate:[HKQuantitySample]
+  private var route: [CLLocation]
+  private var heartRate: [HKQuantitySample]
   private var startDate: Date
 
   var activityType:String {
@@ -38,30 +38,45 @@ struct Workout {
     return "\(activityType) - \(formatter.string(from: startDate))"
   }
 
-  var poly: MKPolyline {
-    let coordinates = route.map{$0.coordinate}
+  var formattedDate: String {
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    formatter.dateStyle = .medium
+
+    return formatter.string(from: startDate)
+  }
+
+  var polyline: MKPolyline {
+    let coordinates = route.map { $0.coordinate }
     let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
     return polyline
   }
 
   var maxHeartRate: Int {
-    let bpm_unit = HKUnit(from: "count/min")
-    if let maxHeart = heartRate.map({$0.quantity.doubleValue(for: bpm_unit)}).max() {
+    let bpmUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+    if let maxHeart = heartRate.map({ $0.quantity.doubleValue(for: bpmUnit) }).max() {
       return Int(maxHeart)
     } else {
       return 0
     }
   }
 
+  var formattedMaxHeartRate: String {
+    return String(format: "%d bpm", maxHeartRate)
+  }
+
+  var formattedAverageHeartRate: String {
+    return String(format: "%d bpm", averageHeartRate)
+  }
+
   private var summedHeartRate: Double {
-    let bpm_unit = HKUnit(from: "count/min")
-    return heartRate.reduce(0.0, {$0 + $1.quantity.doubleValue(for: bpm_unit)})
+    let bpmUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+    return heartRate.reduce(0.0, { $0 + $1.quantity.doubleValue(for: bpmUnit) })
   }
 
   var averageHeartRate: Int {
     return Int(summedHeartRate / Double(heartRate.count))
   }
-
 
   init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
     self.route = route
