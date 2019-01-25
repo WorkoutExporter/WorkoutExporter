@@ -17,20 +17,11 @@ struct Workout {
   private var heartRate: [HKQuantitySample]
   private var startDate: Date
 
-  var activityType:String {
-    let activity: String = {
-      switch hkWorkout.workoutActivityType {
-      case .cycling: return "Cycle"
-      case .running: return "Run"
-      case .walking: return "Walk"
-      case .hiking: return "Hike"
-      default: return "Workout"
-      }
-    }()
-    return activity
+  var activityType: String {
+    return hkWorkout.formattedWorkoutType
   }
 
-  var name:String {
+  var name: String {
     let formatter = DateFormatter()
     formatter.timeStyle = .short
     formatter.dateStyle = .medium

@@ -11,13 +11,14 @@
 		7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */; };
 		7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1691FD08DCB0095B6B1 /* Workout.swift */; };
 		7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */; };
-		74A229731FDC17980059CB59 /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A229721FDC17980059CB59 /* DateFormatting.swift */; };
 		74AC63E91FB844780028E37F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74AC63E81FB844780028E37F /* HealthKit.framework */; };
 		76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC8A671F59A0130062E8EF /* AppDelegate.swift */; };
 		76FC8A6D1F59A0130062E8EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6B1F59A0130062E8EF /* Main.storyboard */; };
 		76FC8A6F1F59A0130062E8EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6E1F59A0130062E8EF /* Assets.xcassets */; };
 		76FC8A721F59A0130062E8EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A701F59A0130062E8EF /* LaunchScreen.storyboard */; };
 		76FC8A7D1F59A0B10062E8EF /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76FC8A7C1F59A0B10062E8EF /* WatchKit.framework */; };
+		CD5D20A321FB824D0008DDA5 /* WorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5D20A221FB824D0008DDA5 /* WorkoutTableViewCell.xib */; };
+		CD5D20A521FB829A0008DDA5 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5D20A421FB829A0008DDA5 /* WorkoutTableViewCell.swift */; };
 		CDF81F5121F66E4100A69B22 /* WorkoutDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF81F5021F66E4100A69B22 /* WorkoutDetailTableViewController.swift */; };
 		CDF81F5421F736D900A69B22 /* HKWorkout+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF81F5321F736D900A69B22 /* HKWorkout+Formatting.swift */; };
 		CDF81F5621F7387600A69B22 /* TimeInterval+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF81F5521F7387600A69B22 /* TimeInterval+Formatting.swift */; };
@@ -28,7 +29,6 @@
 		7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDataStore.swift; path = GpxExport/Models/WorkoutDataStore.swift; sourceTree = SOURCE_ROOT; };
 		7448F1691FD08DCB0095B6B1 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = GpxExport/Models/Workout.swift; sourceTree = SOURCE_ROOT; };
 		7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutsTableViewController.swift; sourceTree = "<group>"; };
-		74A229721FDC17980059CB59 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateFormatting.swift; path = GpxExport/Utilities/DateFormatting.swift; sourceTree = SOURCE_ROOT; };
 		74AC63E81FB844780028E37F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		76489E4F1F59A20200E4094E /* GpxExport.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GpxExport.entitlements; sourceTree = "<group>"; };
 		76FC8A641F59A0130062E8EF /* GpxExport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GpxExport.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +38,8 @@
 		76FC8A711F59A0130062E8EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76FC8A731F59A0130062E8EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76FC8A7C1F59A0B10062E8EF /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		CD5D20A221FB824D0008DDA5 /* WorkoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTableViewCell.xib; sourceTree = "<group>"; };
+		CD5D20A421FB829A0008DDA5 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		CDF81F5021F66E4100A69B22 /* WorkoutDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailTableViewController.swift; sourceTree = "<group>"; };
 		CDF81F5321F736D900A69B22 /* HKWorkout+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkout+Formatting.swift"; sourceTree = "<group>"; };
 		CDF81F5521F7387600A69B22 /* TimeInterval+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Formatting.swift"; sourceTree = "<group>"; };
@@ -69,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */,
-				74A229721FDC17980059CB59 /* DateFormatting.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -108,11 +109,12 @@
 				CDF81F5221F736C100A69B22 /* Extensions */,
 				7448F1631FD08BB80095B6B1 /* Utilities */,
 				7448F1621FD08B980095B6B1 /* Models */,
+				CD5D20A621FB8A410008DDA5 /* Views */,
 				76489E3C1F59A14100E4094E /* ViewControllers */,
 				76FC8A671F59A0130062E8EF /* AppDelegate.swift */,
 				76FC8A6B1F59A0130062E8EF /* Main.storyboard */,
-				76FC8A6E1F59A0130062E8EF /* Assets.xcassets */,
 				76FC8A701F59A0130062E8EF /* LaunchScreen.storyboard */,
+				76FC8A6E1F59A0130062E8EF /* Assets.xcassets */,
 				76489E4F1F59A20200E4094E /* GpxExport.entitlements */,
 				76FC8A731F59A0130062E8EF /* Info.plist */,
 			);
@@ -126,6 +128,15 @@
 				76FC8A7C1F59A0B10062E8EF /* WatchKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD5D20A621FB8A410008DDA5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD5D20A221FB824D0008DDA5 /* WorkoutTableViewCell.xib */,
+				CD5D20A421FB829A0008DDA5 /* WorkoutTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CDF81F5221F736C100A69B22 /* Extensions */ = {
@@ -205,6 +216,7 @@
 				76FC8A721F59A0130062E8EF /* LaunchScreen.storyboard in Resources */,
 				76FC8A6F1F59A0130062E8EF /* Assets.xcassets in Resources */,
 				76FC8A6D1F59A0130062E8EF /* Main.storyboard in Resources */,
+				CD5D20A321FB824D0008DDA5 /* WorkoutTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,8 +230,8 @@
 				7448F1671FD08DAD0095B6B1 /* HealthKitSetupAssistant.swift in Sources */,
 				7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */,
 				CDF81F5621F7387600A69B22 /* TimeInterval+Formatting.swift in Sources */,
+				CD5D20A521FB829A0008DDA5 /* WorkoutTableViewCell.swift in Sources */,
 				CDF81F5421F736D900A69B22 /* HKWorkout+Formatting.swift in Sources */,
-				74A229731FDC17980059CB59 /* DateFormatting.swift in Sources */,
 				7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */,
 				76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */,
 				7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */,
