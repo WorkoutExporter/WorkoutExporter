@@ -21,4 +21,29 @@ extension HKWorkout {
 
     return lengthFormatter.string(fromMeters: totalDistance)
   }
+
+  var formattedStartDate: String {
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    formatter.dateStyle = .medium
+
+    return formatter.string(from: startDate)
+  }
+
+  var formattedStartDateForSection: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMMM yyyy"
+
+    return formatter.string(from: startDate)
+  }
+
+  var formattedWorkoutType: String {
+    switch workoutActivityType {
+    case .cycling: return "Cycle"
+    case .running: return "Run"
+    case .walking: return "Walk"
+    case .hiking: return "Hike"
+    default: return "Workout"
+    }
+  }
 }
