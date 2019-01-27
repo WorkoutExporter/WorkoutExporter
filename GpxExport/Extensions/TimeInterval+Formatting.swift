@@ -9,11 +9,11 @@
 import Foundation
 
 extension TimeInterval {
-  var formatted: String? {
-    let formatter = DateComponentsFormatter()
-    formatter.allowedUnits = [.hour, .minute, .second]
-    formatter.zeroFormattingBehavior = [.pad]
+    var formatted: String? {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.zeroFormattingBehavior = [.pad]
 
-    return formatter.string(from: self)
-  }
+        return formatter.string(from: self)
+    }
 }

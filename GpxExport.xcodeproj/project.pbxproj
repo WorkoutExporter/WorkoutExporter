@@ -106,9 +106,9 @@
 				76FC8A791F59A0AB0062E8EF /* Frameworks */,
 				4CA1966E529AAB915704772F /* Pods */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		76FC8A651F59A0130062E8EF /* Products */ = {
 			isa = PBXGroup;
