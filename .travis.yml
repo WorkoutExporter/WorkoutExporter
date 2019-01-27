@@ -1,0 +1,24 @@
+language: swift
+osx_image: xcode10
+notifications:
+  email: false
+# branches:
+#   only:
+#    - master
+
+# before_install:
+#  - gem install fastlane --no-ri --no-rdoc --no-document
+
+jobs:
+  include:
+    - stage: Swiflint
+      script:
+        - ./Pods/SwiftLint/swiftlint --reporter junit
+
+    # - stage: XCTest
+    #   script:
+    #     - fastlane scan -s SwiftLint-CITests
+
+    # - stage: XCTest
+    #   script:
+    #     - fastlane scan -s SwiftLint-CIUITests
