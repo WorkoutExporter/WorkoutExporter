@@ -143,7 +143,7 @@ struct Workout {
       <trkpt lat=\"\(location.coordinate.latitude)" lon="\(location.coordinate.longitude)">
         <ele>\(location.altitude.magnitude)</ele>
         <time>\(isoFormatter.string(from: location.timestamp))</time>        \(heartrate)
-      </trkpt>"
+      </trkpt>
 
     """
   }
