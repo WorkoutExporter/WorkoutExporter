@@ -208,18 +208,21 @@
                             <outlet property="delegate" destination="6yE-k5-Ihl" id="6z1-j4-RPc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Workouts" id="k82-iG-bPt">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="TrI-vu-i2z">
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="UDN-3i-Afx">
                             <connections>
-                                <action selector="setEditTable:" destination="6yE-k5-Ihl" id="Oze-2Q-cUM"/>
+                                <action selector="didPressShareBarButtonItem:" destination="6yE-k5-Ihl" id="OOS-OI-hh0"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Workouts" id="k82-iG-bPt"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="EZL-FJ-PnB">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
+                        <outlet property="sharingBarButtonItem" destination="UDN-3i-Afx" id="hqa-g6-u0s"/>
                         <segue destination="Ohu-8d-4gr" kind="show" identifier="detailViewSegue" id="JBa-j0-QoF"/>
                     </connections>
                 </tableViewController>
@@ -230,13 +233,17 @@
         <!--Navigation Controller-->
         <scene sceneID="obA-Sh-LHV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bsl-BH-UOm" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="Bsl-BH-UOm" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="E8n-NV-FYC">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AOp-Zo-bOK">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="6yE-k5-Ihl" kind="relationship" relationship="rootViewController" id="jql-yL-Bdd"/>
                     </connections>

@@ -2,17 +2,18 @@ import UIKit
 import HealthKit
 
 class WorkoutsTableViewController: UITableViewController {
-  let group = DispatchGroup()
-
   private enum WorkoutsSegues: String {
     case detailViewSegue
     case finishedCreatingWorkout
   }
 
+  @IBOutlet weak var sharingBarButtonItem: UIBarButtonItem!
+
   lazy private var workoutStore: WorkoutDataStore = {
     return WorkoutDataStore()
   }()
 
+  private let group = DispatchGroup()
   private var workouts: [HKWorkout]?
   private var tableSections: [String]?
   private var workoutSections = [String: [HKWorkout]]()
@@ -88,64 +89,97 @@ class WorkoutsTableViewController: UITableViewController {
     refreshControl.endRefreshing()
   }
 
+  private func exportSelectedWorkouts() {
+    guard let selectedWorkouts = tableView.indexPathsForSelectedRows else { return }
+
+    var workouts = [Workout]()
+
+    for index in selectedWorkouts {
+      if let section = tableSections?[index.section], let workout = workoutSections[section]?[index.row] {
+        group.enter()
+        workoutStore.heartRate(for: workout) { (rates, error) in
+          guard let heartRateSamples = rates, error == nil else {
+            print(error!.localizedDescription)
+            return
+          }
+
+          self.workoutStore.route(for: workout) { (maybe_locations, error) in
+            guard let locations = maybe_locations, error == nil else {
+              print(error!.localizedDescription)
+              return
+            }
+
+            workouts.append(Workout(workout: workout, route: locations, heartRate: heartRateSamples))
+            self.group.leave()
+          }
+        }
+      }
+    }
+
+    group.wait()
+
+    var targetURLs = [URL]()
+
+    for workout in workouts {
+      if let targetURL = workout.writeFile() {
+        targetURLs.append(targetURL)
+      }
+    }
+
+    if targetURLs.count > 0 {
+      let activityViewController = UIActivityViewController(activityItems: targetURLs, applicationActivities: nil)
+      if let popoverPresentationController = activityViewController.popoverPresentationController {
+        popoverPresentationController.barButtonItem = nil
+      }
+      self.present(activityViewController, animated: true)
+    }
+  }
+
   // MARK: UI
 
   private func setupUI() {
     self.tableView.register(UINib(nibName: "WorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: tableCellIdentifier)
 
     self.refreshControl?.addTarget(self, action: #selector(handleRefresh(refreshControl:)), for: UIControl.Event.valueChanged)
+
+    self.navigationController?.setToolbarHidden(true, animated: false)
+
+    sharingBarButtonItem.isEnabled = false
+    setBarButtonItems()
+  }
+
+  private func setBarButtonItems() {
+    if self.tableView.isEditing {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(setEditTable(_:)))
+    } else {
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(setEditTable(_:)))
+    }
   }
 
   @IBAction func setEditTable(_ sender: Any) {
-    if tableView.isEditing {
-      guard let selectedWorkouts = tableView.indexPathsForSelectedRows else {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        return
-      }
+    sharingBarButtonItem.isEnabled = false
 
-      var workouts:[Workout] = []
-
-      for index in selectedWorkouts {
-        if let section = tableSections?[index.section], let workout = workoutSections[section]?[index.row] {
-          group.enter()
-          workoutStore.heartRate(for: workout) { (rates, error) in
-            guard let heartRateSamples = rates, error == nil else {
-              print(error!.localizedDescription)
-              return
-            }
-
-            self.workoutStore.route(for: workout) { (maybe_locations, error) in
-              guard let locations = maybe_locations, error == nil else {
-                print(error!.localizedDescription)
-                return
-              }
-
-              workouts.append(Workout(workout: workout, route: locations, heartRate: heartRateSamples))
-              self.group.leave()
-            }
-          }
-        }
-      }
-
-      group.wait()
-      var targetURLs:[URL] = []
-
-      for workout in workouts {
-        if let targetURL = workout.writeFile() {
-          targetURLs.append(targetURL)
-        }
-      }
-
-      if targetURLs.count > 0 {
-        let activityViewController = UIActivityViewController(activityItems: targetURLs, applicationActivities: nil)
-        if let popoverPresentationController = activityViewController.popoverPresentationController {
-          popoverPresentationController.barButtonItem = nil
-        }
-        self.present(activityViewController, animated: true)
-      }
+    if self.tableView.isEditing {
+      self.tableView.setEditing(false, animated: true)
+      self.navigationController?.setToolbarHidden(true, animated: true)
+    } else {
+      self.tableView.setEditing(true, animated: true)
+      self.navigationController?.setToolbarHidden(false, animated: true)
     }
 
-    tableView.setEditing(!tableView.isEditing, animated: true)
+    setBarButtonItems()
+  }
+
+  @IBAction func didPressShareBarButtonItem(_ sender: UIBarButtonItem) {
+    exportSelectedWorkouts()
+  }
+
+  private func setSharingBarButtonItem() {
+    if let selectedWorkouts = tableView.indexPathsForSelectedRows, selectedWorkouts.count > 0 {
+      sharingBarButtonItem.isEnabled = true
+    } else {
+      sharingBarButtonItem.isEnabled = false
+    }
   }
 
   // MARK: UITableViewDataSource, UITableViewDelegate
@@ -191,17 +225,21 @@ class WorkoutsTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if tableView.isEditing == false {
+    if tableView.isEditing {
+      setSharingBarButtonItem()
+    } else {
       self.performSegue(withIdentifier: WorkoutsSegues.detailViewSegue.rawValue, sender: indexPath)
     }
   }
 
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    if let title = tableSections?[section] {
-      return title
-    } else {
-      return ""
+  override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    if tableView.isEditing {
+      setSharingBarButtonItem()
     }
+  }
+
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return tableSections?[section]
   }
 
   // MARK: Navigation
