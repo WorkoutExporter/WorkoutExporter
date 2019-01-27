@@ -47,8 +47,8 @@ class WorkoutDetailTableViewController: UITableViewController {
         return
       }
 
-      self.workoutStore.route(for: self.hkWorkout) { (maybe_locations, error) in
-        guard let locations = maybe_locations, error == nil else {
+      self.workoutStore.route(for: self.hkWorkout) { (maybeLocations, error) in
+        guard let locations = maybeLocations, error == nil else {
           print(error!.localizedDescription)
           DispatchQueue.main.async {
             self.resetData()
