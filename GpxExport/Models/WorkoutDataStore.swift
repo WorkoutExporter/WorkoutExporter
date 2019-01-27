@@ -4,29 +4,30 @@ import WatchKit
 class WorkoutDataStore {
   private var healthStore: HKHealthStore
 
-  init(){
+  init() {
     healthStore = HKHealthStore()
   }
 
-  public func heartRate(for workout: HKWorkout, completion: @escaping (([HKQuantitySample]?, Error?) -> Swift.Void)){
-    var allSamples = Array<HKQuantitySample>()
-
+  public func heartRate(for workout: HKWorkout, completion: @escaping (([HKQuantitySample]?, Error?) -> Swift.Void)) {
+    var allSamples = [HKQuantitySample]()
 
     let hrType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
 
     let predicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: HKQueryOptions.strictStartDate)
 
-    let heartRateQuery = HKSampleQuery(sampleType: hrType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) {
-      (query, samples, error) in
+    let heartRateQuery = HKSampleQuery(sampleType: hrType,
+                                       predicate: predicate,
+                                       limit: HKObjectQueryNoLimit,
+                                       sortDescriptors: [sortDescriptor]) { (_, samples, error) in
+                                        guard let heartRateSamples: [HKQuantitySample] = samples as? [HKQuantitySample], error == nil else {
+                                          completion(nil, error)
+                                          return
+                                        }
 
-      guard let heartRateSamples: [HKQuantitySample] = samples as? [HKQuantitySample], error == nil else {
-        completion(nil, error)
+      if heartRateSamples.count == 0 {
+        completion([HKQuantitySample](), nil)
         return
-      }
-      if (heartRateSamples.count == 0){
-        completion([HKQuantitySample](), nil);
-        return;
       }
 
       for heartRateSample in heartRateSamples {
@@ -37,29 +38,31 @@ class WorkoutDataStore {
     healthStore.execute(heartRateQuery)
   }
 
-  public func route(for workout: HKWorkout, completion: @escaping (([CLLocation]?, Error?) -> Swift.Void)){
-    let routeType = HKSeriesType.workoutRoute();
-    let p = HKQuery.predicateForObjects(from: workout)
+  public func route(for workout: HKWorkout, completion: @escaping (([CLLocation]?, Error?) -> Void)) {
+    let routeType = HKSeriesType.workoutRoute()
+    let predicate = HKQuery.predicateForObjects(from: workout)
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
 
-    let q = HKSampleQuery(sampleType: routeType, predicate: p, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) {
-      (query, samples, error) in
-      if let err = error {
-        print(err)
+    let query = HKSampleQuery(sampleType: routeType,
+                              predicate: predicate,
+                              limit: HKObjectQueryNoLimit,
+                              sortDescriptors: [sortDescriptor]) { (_, samples, error) in
+                                if let err = error {
+                                  print(err)
+                                  return
+                                }
+
+      var routeLocations = [CLLocation]()
+      guard let routeSamples: [HKWorkoutRoute] = samples as? [HKWorkoutRoute] else { print("No route samples"); return }
+
+      if routeSamples.count == 0 {
+        completion([CLLocation](), nil)
         return
       }
 
-      var routeLocations:[CLLocation] = []
-      guard let routeSamples: [HKWorkoutRoute] = samples as? [HKWorkoutRoute] else { print("No route samples"); return }
-
-      if (routeSamples.count == 0){
-        completion([CLLocation](), nil)
-        return;
-      }
       var sampleCounter = 0
 
       for routeSample: HKWorkoutRoute in routeSamples {
-
         let locationQuery: HKWorkoutRouteQuery = HKWorkoutRouteQuery(route: routeSample) { _, locationResults, done, error in
           guard locationResults != nil else {
             print("Error occured while querying for locations: \(error?.localizedDescription ?? "")")
@@ -90,17 +93,16 @@ class WorkoutDataStore {
         self.healthStore.execute(locationQuery)
       }
     }
-    healthStore.execute(q)
+    healthStore.execute(query)
   }
 
-  func loadWorkouts(completion: @escaping (([HKWorkout]?, Error?) -> Swift.Void)){
-
+  func loadWorkouts(completion: @escaping (([HKWorkout]?, Error?) -> Void)) {
     let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
       HKQuery.predicateForWorkouts(with: .walking),
       HKQuery.predicateForWorkouts(with: .running),
       HKQuery.predicateForWorkouts(with: .hiking),
       HKQuery.predicateForWorkouts(with: .cycling),
-      HKQuery.predicateForWorkouts(with: .swimming),
+      HKQuery.predicateForWorkouts(with: .swimming)
       ])
 
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -110,8 +112,7 @@ class WorkoutDataStore {
       predicate: predicate,
       limit: HKObjectQueryNoLimit,
       sortDescriptors: [sortDescriptor]
-    ){
-      (query, samples, error) in
+    ) { (_, samples, error) in
       DispatchQueue.main.async {
         guard let samples = samples as? [HKWorkout], error == nil else {
           completion(nil, error)

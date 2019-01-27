@@ -82,11 +82,10 @@ struct Workout {
   }
 
   func writeFile() -> URL? {
-
-    var current_heart_rate_index = 0
-    var current_hr: Double = -1
-    let bpm_unit = HKUnit(from: "count/min")
-    var hr_string = ""
+    var currentHeartrateIndex = 0
+    var currentHeartrate: Double = -1
+    let bpmUnit = HKUnit(from: "count/min")
+    var heartrateString = ""
 
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
@@ -102,12 +101,12 @@ struct Workout {
 
     do {
       let manager = FileManager.default
-      if manager.fileExists(atPath: targetURL.path){
+      if manager.fileExists(atPath: targetURL.path) {
         try manager.removeItem(atPath: targetURL.path)
       }
       manager.createFile(atPath: targetURL.path, contents: Data())
       file = try FileHandle(forWritingTo: targetURL)
-    }catch let err {
+    } catch let err {
       print(err)
       return
     }
@@ -117,13 +116,12 @@ struct Workout {
     }
 
     for location in self.route {
-
-      while (current_heart_rate_index < self.self.heartRate.count) && (location.timestamp > self.heartRate[current_heart_rate_index].startDate) {
-        current_hr = self.heartRate[current_heart_rate_index].quantity.doubleValue(for: bpm_unit)
-        current_heart_rate_index += 1
-        hr_string = self.gpxHeartRate(current_hr: current_hr)
+      while (currentHeartrateIndex < self.self.heartRate.count) && (location.timestamp > self.heartRate[currentHeartrateIndex].startDate) {
+        currentHeartrate = self.heartRate[currentHeartrateIndex].quantity.doubleValue(for: bpmUnit)
+        currentHeartrateIndex += 1
+        heartrateString = self.gpxHeartRate(currentHeartrate)
       }
-      if let trackpoint = self.gpxTrackPoint(location: location, hr_string: hr_string).data(using: .utf8) {
+      if let trackpoint = self.gpxTrackPoint(location: location, heartrate: heartrateString).data(using: .utf8) {
         file.write(trackpoint)
       }
     }
@@ -134,35 +132,34 @@ struct Workout {
 
   """.data(using: .utf8)!)
     file.closeFile()
-
     }
     return targetURL
   }
 
-  private func gpxTrackPoint(location: CLLocation, hr_string: String) -> String {
-    let iso_formatter = ISO8601DateFormatter()
+  private func gpxTrackPoint(location: CLLocation, heartrate: String) -> String {
+    let isoFormatter = ISO8601DateFormatter()
 
     return """
       <trkpt lat=\"\(location.coordinate.latitude)" lon="\(location.coordinate.longitude)">
         <ele>\(location.altitude.magnitude)</ele>
-        <time>\(iso_formatter.string(from: location.timestamp))</time>        \(hr_string)
+        <time>\(isoFormatter.string(from: location.timestamp))</time>        \(heartrate)
       </trkpt>"
 
     """
   }
 
-  private func gpxHeartRate(current_hr: Double) -> String {
+  private func gpxHeartRate(_ currentHeartrate: Double) -> String {
     return """
 
         <extensions>
           <gpxtpx:TrackPointExtension>
-          <gpxtpx:hr>\(current_hr)</gpxtpx:hr>
+          <gpxtpx:hr>\(currentHeartrate)</gpxtpx:hr>
           </gpxtpx:TrackPointExtension>
         </extensions>
     """
   }
   private func gpxHeader(title: String, startDate: Date) -> String {
-    let iso_formatter = ISO8601DateFormatter()
+    let isoFormatter = ISO8601DateFormatter()
 
     let formatter = DateFormatter()
     formatter.timeStyle = .short
@@ -173,7 +170,7 @@ struct Workout {
     <gpx creator="WorkoutExporter" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
 
       <metadata>
-        <time>\(iso_formatter.string(from: startDate))</time>
+        <time>\(isoFormatter.string(from: startDate))</time>
       </metadata>
       <trk>
         <name>\(title)</name>

@@ -37,14 +37,14 @@ class WorkoutsTableViewController: UITableViewController {
   // MARK: Data source
 
   func reloadWorkouts() {
-    workoutStore.loadWorkouts() { (workouts, error) in
+    workoutStore.loadWorkouts { (workouts, _) in
       if let appleWorkouts = workouts?.filter({
         if let filter = $0.sourceRevision.productType?.contains("Watch") {
           return filter
         } else {
           return false
         }
-      }){
+      }) {
         self.workouts = appleWorkouts
         self.tableSections = []
 
@@ -103,8 +103,8 @@ class WorkoutsTableViewController: UITableViewController {
             return
           }
 
-          self.workoutStore.route(for: workout) { (maybe_locations, error) in
-            guard let locations = maybe_locations, error == nil else {
+          self.workoutStore.route(for: workout) { (maybeLocations, error) in
+            guard let locations = maybeLocations, error == nil else {
               print(error!.localizedDescription)
               return
             }
