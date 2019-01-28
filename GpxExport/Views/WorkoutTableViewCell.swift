@@ -9,9 +9,9 @@
 import UIKit
 
 class WorkoutTableViewCell: UITableViewCell {
-  @IBOutlet weak var dateLabel: UILabel!
-  @IBOutlet weak var distanceLabel: UILabel!
-  @IBOutlet weak var imageLabel: UIImageView!
-  @IBOutlet weak var workoutTypeLabel: UILabel!
-  @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var imageLabel: UIImageView!
+    @IBOutlet weak var workoutTypeLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
 }

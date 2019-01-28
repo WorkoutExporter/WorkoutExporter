@@ -24,7 +24,7 @@ class HealthKitSetupAssistant {
             toShare: healthKitTypesToWrite,
             read: healthKitTypesToRead
         ) { (success, error) in
-          completion(success, error)
+            completion(success, error)
         }
     }
 }
