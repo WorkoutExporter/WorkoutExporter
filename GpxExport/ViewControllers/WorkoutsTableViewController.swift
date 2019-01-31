@@ -152,7 +152,8 @@ class WorkoutsTableViewController: UITableViewController {
         if self.tableView.isEditing {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(setEditTable(_:)))
         } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select",
+            let buttonTitle = NSLocalizedString("bar.button.select", comment: "Bar Button: Select Workouts")
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: buttonTitle,
                                                                      style: .plain,
                                                                      target: self,
                                                                      action: #selector(setEditTable(_:)))

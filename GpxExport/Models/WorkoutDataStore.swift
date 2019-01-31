@@ -53,7 +53,10 @@ class WorkoutDataStore {
                                     }
 
                                     var routeLocations = [CLLocation]()
-                                    guard let routeSamples: [HKWorkoutRoute] = samples as? [HKWorkoutRoute] else { print("No route samples"); return }
+                                    guard let routeSamples: [HKWorkoutRoute] = samples as? [HKWorkoutRoute] else {
+                                        print("No route samples")
+                                        return
+                                    }
 
                                     if routeSamples.count == 0 {
                                         completion([CLLocation](), nil)

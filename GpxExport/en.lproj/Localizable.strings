@@ -1,0 +1,18 @@
+
+/* Bar Button: Select Workouts */
+"bar.button.select" = "Select";
+
+/* Workout Activity Type: Cycling */
+"workout.activity.type.cycling" = "Cycle";
+
+/* Workout Activity Type: Default - Workout */
+"workout.activity.type.default" = "Workout";
+
+/* Workout Activity Type: Hike */
+"workout.activity.type.hiking" = "Hike";
+
+/* Workout Activity Type: Run */
+"workout.activity.type.running" = "Run";
+
+/* Workout Activity Type: Walk */
+"workout.activity.type.walking" = "Walk";
