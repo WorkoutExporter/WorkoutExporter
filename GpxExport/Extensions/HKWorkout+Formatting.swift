@@ -39,11 +39,16 @@ extension HKWorkout {
 
     var formattedWorkoutType: String {
         switch workoutActivityType {
-        case .cycling: return "Cycle"
-        case .running: return "Run"
-        case .walking: return "Walk"
-        case .hiking: return "Hike"
-        default: return "Workout"
+        case .cycling:
+            return NSLocalizedString("workout.activity.type.cycling", comment: "Workout Activity Type: Cycle")
+        case .running:
+            return NSLocalizedString("workout.activity.type.running", comment: "Workout Activity Type: Run")
+        case .walking:
+            return NSLocalizedString("workout.activity.type.walking", comment: "Workout Activity Type: Walk")
+        case .hiking:
+            return NSLocalizedString("workout.activity.type.hiking", comment: "Workout Activity Type: Hike")
+        default:
+            return NSLocalizedString("workout.activity.type.default", comment: "Workout Activity Type: Default - Workout")
         }
     }
 }

@@ -1,0 +1,42 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Heart Rate"; ObjectID = "1Sw-7c-i9S"; */
+"1Sw-7c-i9S.headerTitle" = "Herzfrequenz";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "DMi-dB-mCH"; */
+"DMi-dB-mCH.text" = "Datum";
+
+/* Class = "UILabel"; text = "60bpm"; ObjectID = "DZq-4u-MZ8"; */
+"DZq-4u-MZ8.text" = "60bpm";
+
+/* Class = "UITableViewSection"; headerTitle = "Map"; ObjectID = "FGF-Xg-e50"; */
+"FGF-Xg-e50.headerTitle" = "Karte";
+
+/* Class = "UITableViewSection"; headerTitle = "Workout"; ObjectID = "J21-eh-4cj"; */
+"J21-eh-4cj.headerTitle" = "Training";
+
+/* Class = "UILabel"; text = "Average"; ObjectID = "JRR-83-tAt"; */
+"JRR-83-tAt.text" = "Durchschnitt";
+
+/* Class = "UILabel"; text = "60bpm"; ObjectID = "KEI-lY-1QR"; */
+"KEI-lY-1QR.text" = "60bpm";
+
+/* Class = "UILabel"; text = "Maximum"; ObjectID = "SHR-hm-92v"; */
+"SHR-hm-92v.text" = "Maximum";
+
+/* Class = "UILabel"; text = "0m"; ObjectID = "Sd0-EC-T80"; */
+"Sd0-EC-T80.text" = "0m";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "Utg-17-njm"; */
+"Utg-17-njm.text" = "Distanz";
+
+/* Class = "UILabel"; text = "0m"; ObjectID = "Uzf-M2-KyS"; */
+"Uzf-M2-KyS.text" = "0m";
+
+/* Class = "UILabel"; text = "Duration"; ObjectID = "ij0-w5-wW7"; */
+"ij0-w5-wW7.text" = "Dauer";
+
+/* Class = "UINavigationItem"; title = "Workouts"; ObjectID = "k82-iG-bPt"; */
+"k82-iG-bPt.title" = "Trainings";
+
+/* Class = "UILabel"; text = "24.12.2018"; ObjectID = "rf4-Bc-rht"; */
+"rf4-Bc-rht.text" = "24.12.2018";
