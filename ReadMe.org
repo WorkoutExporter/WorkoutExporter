@@ -1,6 +1,7 @@
  [[./img/WorkoutExporter.png]]
 
 [[https://api.travis-ci.org/WorkoutExporter/WorkoutExporter.png]]
+[[https://testflight.apple.com/join/rrTX2evp][https://img.shields.io/badge/Join-TestFlight-blue.svg]]
 
 * WorkoutExporter
 
@@ -8,6 +9,8 @@
 *** Export Workouts recorded by Apple Watch
     For the time beeing workouts are exported into GPX files.
     Exported files could be imported to local or online fitness analytic software.
+
+    You can [[https://testflight.apple.com/join/rrTX2evp][join the Testflight beta]] now.
 ** Usage
 *** Choose Workout tracked by Apple Watch
     [[./img/tableview.png]]
