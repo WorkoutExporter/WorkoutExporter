@@ -1,7 +1,7 @@
  [[./img/WorkoutExporter.png]]
 
 [[https://api.travis-ci.org/WorkoutExporter/WorkoutExporter.png]]
-[[https://testflight.apple.com/join/rrTX2evp]]
+[[https://testflight.apple.com/join/rrTX2evp][https://img.shields.io/badge/Join-TestFlight-blue.svg]]
 
 * WorkoutExporter
 
