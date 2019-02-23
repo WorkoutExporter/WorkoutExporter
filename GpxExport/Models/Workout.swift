@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
 import HealthKit
 import MapKit
 
@@ -83,49 +82,5 @@ struct Workout {
 
     func writeFile(_ format: String) -> URL? {
         return writeGPX()
-    }
-
-    func gpxTrackPoint(location: CLLocation, heartrate: String) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-
-        return """
-        <trkpt lat=\"\(location.coordinate.latitude)" lon="\(location.coordinate.longitude)">
-        <ele>\(location.altitude.magnitude)</ele>
-        <time>\(isoFormatter.string(from: location.timestamp))</time>        \(heartrate)
-        </trkpt>
-
-        """
-    }
-
-    func gpxHeartRate(_ currentHeartrate: Double) -> String {
-        return """
-
-        <extensions>
-        <gpxtpx:TrackPointExtension>
-        <gpxtpx:hr>\(currentHeartrate)</gpxtpx:hr>
-        </gpxtpx:TrackPointExtension>
-        </extensions>
-        """
-    }
-    func gpxHeader(title: String, startDate: Date) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .medium
-// swiftlint:disable line_length
-        return """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <gpx creator="WorkoutExporter" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
-
-        <metadata>
-        <time>\(isoFormatter.string(from: startDate))</time>
-        </metadata>
-        <trk>
-        <name>\(title)</name>
-        <trkseg>
-
-        """
-// swiftlint:enable line_length
     }
 }

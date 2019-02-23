@@ -1,5 +1,5 @@
 //
-//  Workout+GpxWriter.swift
+//  Workout+FitWriter.swift
 //  GpxExport
 //
 //  Created by Mario Martelli on 23.02.19.
@@ -9,9 +9,10 @@
 import Foundation
 import HealthKit
 import CoreLocation
+import FitDataProtocol
 
 extension Workout {
-    func writeGPX() -> URL? {
+    func writeFit() -> URL? {
         var currentHeartrateIndex = 0
         var currentHeartrate: Double = -1
         let bpmUnit = HKUnit(from: "count/min")
@@ -24,7 +25,7 @@ extension Workout {
 
         let targetURL = URL(fileURLWithPath: NSTemporaryDirectory())
             .appendingPathComponent(fileName)
-            .appendingPathExtension("gpx")
+            .appendingPathExtension("fit")
 
         DispatchQueue.global(qos: .background).async {
             let file: FileHandle
