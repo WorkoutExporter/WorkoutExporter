@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		175B02D6AF4B477C05308801 /* libPods-GpxExport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBEF42898170037D4968023 /* libPods-GpxExport.a */; };
+		744388B62221965C00F02AE7 /* Workout+GpxWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744388B52221965C00F02AE7 /* Workout+GpxWriter.swift */; };
 		7448F1671FD08DAD0095B6B1 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */; };
 		7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */; };
 		7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1691FD08DCB0095B6B1 /* Workout.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		3BAE4A9F42EA3573B587BA47 /* Pods-GpxExport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GpxExport.release.xcconfig"; path = "Pods/Target Support Files/Pods-GpxExport/Pods-GpxExport.release.xcconfig"; sourceTree = "<group>"; };
+		744388B52221965C00F02AE7 /* Workout+GpxWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+GpxWriter.swift"; sourceTree = "<group>"; };
 		7448F1651FD08DAC0095B6B1 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthKitSetupAssistant.swift; path = GpxExport/Utilities/HealthKitSetupAssistant.swift; sourceTree = SOURCE_ROOT; };
 		7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDataStore.swift; path = GpxExport/Models/WorkoutDataStore.swift; sourceTree = SOURCE_ROOT; };
 		7448F1691FD08DCB0095B6B1 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = GpxExport/Models/Workout.swift; sourceTree = SOURCE_ROOT; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				7448F1691FD08DCB0095B6B1 /* Workout.swift */,
+				744388B52221965C00F02AE7 /* Workout+GpxWriter.swift */,
 				7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */,
 			);
 			path = Models;
@@ -298,6 +301,7 @@
 			files = (
 				7448F1671FD08DAD0095B6B1 /* HealthKitSetupAssistant.swift in Sources */,
 				7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */,
+				744388B62221965C00F02AE7 /* Workout+GpxWriter.swift in Sources */,
 				CDF81F5621F7387600A69B22 /* TimeInterval+Formatting.swift in Sources */,
 				CD5D20A521FB829A0008DDA5 /* WorkoutTableViewCell.swift in Sources */,
 				CDF81F5421F736D900A69B22 /* HKWorkout+Formatting.swift in Sources */,
