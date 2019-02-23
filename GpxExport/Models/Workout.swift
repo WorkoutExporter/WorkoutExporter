@@ -81,7 +81,7 @@ struct Workout {
         self.hkWorkout = workout
     }
 
-    func writeFile() -> URL? {
+    func writeFile(_ format: String) -> URL? {
         return writeGPX()
     }
 

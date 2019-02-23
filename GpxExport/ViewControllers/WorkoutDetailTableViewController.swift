@@ -105,12 +105,28 @@ class WorkoutDetailTableViewController: UITableViewController {
     }
 
     @IBAction func sharingAsGPX(_ sender: UIBarButtonItem) {
-        guard let targetURL = workout?.writeFile() else { return }
+
+        let alert = UIAlertController(title: "What file to generate?", message: "It's recommended to use GPX for now.", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "GPX", style: .default, handler: {(_: UIAlertAction!) in
+            self.handlingAction("GPX", barButtonItem: sender)
+        }))
+        alert.addAction(UIAlertAction(title: "Fit", style: .default, handler: {(_: UIAlertAction!) in
+            //Sign out action
+            self.handlingAction("Fit", barButtonItem: sender)
+        }))
+
+        self.present(alert, animated: true)
+
+    }
+
+    func handlingAction(_ fileType: String, barButtonItem: UIBarButtonItem) {
+        guard let targetURL = workout?.writeFile(fileType) else { return }
 
         let activityViewController = UIActivityViewController(activityItems: [targetURL], applicationActivities: nil)
 
         if let popoverPresentationController = activityViewController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = sender
+            popoverPresentationController.barButtonItem = barButtonItem
         }
 
         self.present(activityViewController, animated: true)

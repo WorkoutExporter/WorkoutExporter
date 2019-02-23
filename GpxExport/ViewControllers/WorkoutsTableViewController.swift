@@ -90,6 +90,19 @@ class WorkoutsTableViewController: UITableViewController {
     }
 
     private func exportSelectedWorkouts() {
+        let alert = UIAlertController(title: "What file to generate?", message: "It's recommended to use GPX for now.", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "GPX", style: .default, handler: {(_: UIAlertAction!) in
+            self.handleExport("GPX")
+        }))
+        alert.addAction(UIAlertAction(title: "Fit", style: .default, handler: {(_: UIAlertAction!) in
+            //Sign out action
+            self.handleExport("Fit")
+        }))
+
+        self.present(alert, animated: true)
+    }
+    private func handleExport(_ format: String) {
         guard let selectedWorkouts = tableView.indexPathsForSelectedRows else { return }
 
         var workouts = [Workout]()
@@ -121,7 +134,7 @@ class WorkoutsTableViewController: UITableViewController {
         var targetURLs = [URL]()
 
         for workout in workouts {
-            if let targetURL = workout.writeFile() {
+            if let targetURL = workout.writeFile(format) {
                 targetURLs.append(targetURL)
             }
         }
