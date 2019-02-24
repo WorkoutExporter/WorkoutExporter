@@ -10,13 +10,13 @@ import Foundation
 import HealthKit
 import CoreLocation
 import FitDataProtocol
+import FitnessUnits
 
 extension Workout {
     func writeFit() -> URL? {
         var currentHeartrateIndex = 0
         var currentHeartrate: Double = -1
         let bpmUnit = HKUnit(from: "count/min")
-        var heartrateString = ""
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
@@ -42,74 +42,80 @@ extension Workout {
                 return
             }
 
-            if let header = self.gpxHeader(title: self.name, startDate: self.startDate).data(using: .utf8) {
-                file.write(header)
-            }
+            let time = FitTime(date: Date())
+            let duration = Measurement(value: self.duration, unit: UnitDuration.seconds)
+            var messages: [FitMessage] = []
+            let activity = ActivityMessage(timeStamp: time,
+                                           totalTimerTime: duration,
+                                           localTimeStamp: nil,
+                                           numberOfSessions: nil,
+                                           activity: Activity.manual,
+                                           event: nil,
+                                           eventType: nil,
+                                           eventGroup: nil)
+            messages.append(activity)
+            let fileId = FileIdMessage(deviceSerialNumber: nil,
+                                        fileCreationDate: time,
+                                        manufacturer: .garmin,
+                                        product: nil,
+                                        fileNumber: nil,
+                                        fileType: FileType.activity,
+                                        productName: nil)
+
+            let stanceTime = StanceTime.nilSelf
+            let torqueEffectiveness = TorqueEffectiveness.nilSelf
+            let pedalSmoothness = PedalSmoothness.nilSelf
 
             for location in self.route {
-                while (currentHeartrateIndex < self.self.heartRate.count) && (location.timestamp > self.heartRate[currentHeartrateIndex].startDate) {
+                var heartrate: UInt8 = 0
+                while (currentHeartrateIndex < self.heartRate.count) && (location.timestamp > self.heartRate[currentHeartrateIndex].startDate) {
                     currentHeartrate = self.heartRate[currentHeartrateIndex].quantity.doubleValue(for: bpmUnit)
                     currentHeartrateIndex += 1
-                    heartrateString = self.gpxHeartRate(currentHeartrate)
+                    heartrate = UInt8(currentHeartrate)
                 }
-                if let trackpoint = self.gpxTrackPoint(location: location, heartrate: heartrateString).data(using: .utf8) {
-                    file.write(trackpoint)
-                }
+                let latitude = ValidatedMeasurement(value: location.coordinate.latitude, valid: true, unit: UnitAngle.garminSemicircle)
+                let longitude = ValidatedMeasurement(value: location.coordinate.longitude, valid: true, unit: UnitAngle.garminSemicircle)
+                let altitude = ValidatedMeasurement(value: location.altitude, valid: true, unit: UnitLength.meters)
+                let record = RecordMessage(timeStamp: FitTime(date: location.timestamp),
+                                           position: Position(latitude: latitude, longitude: longitude),
+                                           distance: nil,
+                                           timeFromCourse: nil,
+                                           cycles: nil,
+                                           totalCycles: nil,
+                                           accumulatedPower: nil,
+                                           altitude: altitude,
+                                           speed: nil,
+                                           power: nil,
+                                           gpsAccuracy: nil,
+                                           verticalSpeed: nil,
+                                           calories: nil,
+                                           verticalOscillation: nil,
+                                           stanceTime: stanceTime,
+                                           heartRate: heartrate,
+                                           cadence: nil,
+                                           grade: nil,
+                                           resistance: nil,
+                                           cycleLength: nil,
+                                           temperature: nil,
+                                           activity: nil,
+                                           torqueEffectiveness: torqueEffectiveness,
+                                           pedalSmoothness: pedalSmoothness,
+                                           stroke: nil,
+                                           zone: nil,
+                                           ballSpeed: nil,
+                                           deviceIndex: nil)
+                messages.append(record)
             }
-            file.write("""
-  </trkseg>
-  </trk>
-  </gpx>
 
-  """.data(using: .utf8)!)
-            file.closeFile()
+            do {
+                let encoder = FitFileEncoder(dataValidityStrategy: .none)
+                let data = try encoder.encode(fildIdMessage: fileId, messages: messages)
+                file.write(data)
+
+            } catch {
+                print(error)
+            }
         }
         return targetURL
-
-    }
-
-    private func gpxTrackPoint(location: CLLocation, heartrate: String) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-
-        return """
-        <trkpt lat=\"\(location.coordinate.latitude)" lon="\(location.coordinate.longitude)">
-        <ele>\(location.altitude.magnitude)</ele>
-        <time>\(isoFormatter.string(from: location.timestamp))</time>        \(heartrate)
-        </trkpt>
-
-        """
-    }
-
-    private func gpxHeartRate(_ currentHeartrate: Double) -> String {
-        return """
-
-        <extensions>
-        <gpxtpx:TrackPointExtension>
-        <gpxtpx:hr>\(currentHeartrate)</gpxtpx:hr>
-        </gpxtpx:TrackPointExtension>
-        </extensions>
-        """
-    }
-
-    private func gpxHeader(title: String, startDate: Date) -> String {
-        let isoFormatter = ISO8601DateFormatter()
-
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .medium
-        // swiftlint:disable line_length
-        return """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <gpx creator="WorkoutExporter" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3">
-
-        <metadata>
-        <time>\(isoFormatter.string(from: startDate))</time>
-        </metadata>
-        <trk>
-        <name>\(title)</name>
-        <trkseg>
-
-        """
-        // swiftlint:enable line_length
     }
 }

@@ -68,6 +68,10 @@ struct Workout {
         return Int(summedHeartRate / Double(heartRate.count))
     }
 
+    var duration: TimeInterval {
+        return hkWorkout.duration
+    }
+
     init(workout: HKWorkout, route: [CLLocation], heartRate: [HKQuantitySample]) {
         self.route = route
         self.heartRate = heartRate
@@ -81,6 +85,9 @@ struct Workout {
     }
 
     func writeFile(_ format: String) -> URL? {
+        if format == "Fit" {
+            return writeFit()
+        }
         return writeGPX()
     }
 }
