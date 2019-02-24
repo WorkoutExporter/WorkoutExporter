@@ -73,8 +73,8 @@ extension Workout {
                     currentHeartrateIndex += 1
                     heartrate = UInt8(currentHeartrate)
                 }
-                let latitude = ValidatedMeasurement(value: location.coordinate.latitude, valid: true, unit: UnitAngle.garminSemicircle)
-                let longitude = ValidatedMeasurement(value: location.coordinate.longitude, valid: true, unit: UnitAngle.garminSemicircle)
+                let latitude = ValidatedMeasurement(value: location.coordinate.latitude, valid: true, unit: UnitAngle.degrees)
+                let longitude = ValidatedMeasurement(value: location.coordinate.longitude, valid: true, unit: UnitAngle.degrees)
                 let altitude = ValidatedMeasurement(value: location.altitude, valid: true, unit: UnitLength.meters)
                 let record = RecordMessage(timeStamp: FitTime(date: location.timestamp),
                                            position: Position(latitude: latitude, longitude: longitude),
