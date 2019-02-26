@@ -10,6 +10,11 @@ import Foundation
 import HealthKit
 import MapKit
 
+enum ExportFileType {
+    case gpx
+    case fit
+}
+
 struct Workout {
     private var hkWorkout: HKWorkout
     var route: [CLLocation]
@@ -84,8 +89,8 @@ struct Workout {
         self.hkWorkout = workout
     }
 
-    func writeFile(_ format: String) -> URL? {
-        if format == "Fit" {
+    func writeFile(_ format: ExportFileType) -> URL? {
+        if format == .fit {
             return writeFit()
         }
         return writeGPX()
