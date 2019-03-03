@@ -17,6 +17,9 @@
 /* Workout Activity Type: Walk */
 "workout.activity.type.walking" = "Walk";
 
+/* Workout Activity Type: Swimming */
+"workout.activity.type.swimming" = "Swim";
+
 /* Action Sheet: File Format selection */
 "actionSheet.formatSelection.title" = "What format to export?";
 "actionSheet.formatSelection.content" = "Select the file format you want to export.";

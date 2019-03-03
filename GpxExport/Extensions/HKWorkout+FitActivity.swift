@@ -13,12 +13,12 @@ import HealthKit
 extension HKWorkout {
     var antActivity: Sport {
         switch workoutActivityType {
-        case .cycling: return .cycling
-        case.running: return .running
-        case .walking: return .walking
-        case .hiking: return .hiking
+        case .cycling:  return .cycling
+        case .running:  return .running
+        case .walking:  return .walking
+        case .hiking:   return .hiking
         case .swimming: return .swimming
-        default: return .generic
+        default:        return .generic
         }
     }
 }
