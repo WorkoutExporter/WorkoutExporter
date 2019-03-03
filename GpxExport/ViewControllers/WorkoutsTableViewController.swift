@@ -90,6 +90,21 @@ class WorkoutsTableViewController: UITableViewController {
     }
 
     private func exportSelectedWorkouts() {
+        let alert = UIAlertController(title: NSLocalizedString("actionSheet.formatSelection.title", comment: "Format Selection Title"),
+                                      message: NSLocalizedString("actionSheet.formatSelection.content", comment: "Format Selection Content"),
+                                      preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "GPX", style: .default, handler: {(_: UIAlertAction) in
+            self.handleExport(.gpx)
+        }))
+        alert.addAction(UIAlertAction(title: "Fit", style: .default, handler: {(_: UIAlertAction) in
+            //Sign out action
+            self.handleExport(.fit)
+        }))
+
+        self.present(alert, animated: true)
+    }
+    private func handleExport(_ format: ExportFileType) {
         guard let selectedWorkouts = tableView.indexPathsForSelectedRows else { return }
 
         var workouts = [Workout]()
@@ -121,7 +136,7 @@ class WorkoutsTableViewController: UITableViewController {
         var targetURLs = [URL]()
 
         for workout in workouts {
-            if let targetURL = workout.writeFile() {
+            if let targetURL = workout.writeFile(format) {
                 targetURLs.append(targetURL)
             }
         }
