@@ -9,6 +9,7 @@
 import Foundation
 import HealthKit
 import MapKit
+import AntMessageProtocol
 
 enum ExportFileType {
     case gpx
@@ -23,6 +24,10 @@ struct Workout {
 
     var activityType: String {
         return hkWorkout.formattedWorkoutType
+    }
+
+    var antSport: Sport {
+        return hkWorkout.antActivity
     }
 
     var name: String {

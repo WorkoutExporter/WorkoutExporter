@@ -14,6 +14,7 @@
 		7448F16A1FD08DCB0095B6B1 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */; };
 		7448F16B1FD08DCB0095B6B1 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F1691FD08DCB0095B6B1 /* Workout.swift */; };
 		7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */; };
+		74543D0A222BDE0700562086 /* HKWorkout+FitActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74543D09222BDE0700562086 /* HKWorkout+FitActivity.swift */; };
 		74AC63E91FB844780028E37F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74AC63E81FB844780028E37F /* HealthKit.framework */; };
 		76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC8A671F59A0130062E8EF /* AppDelegate.swift */; };
 		76FC8A6D1F59A0130062E8EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6B1F59A0130062E8EF /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		7448F1681FD08DCB0095B6B1 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDataStore.swift; path = GpxExport/Models/WorkoutDataStore.swift; sourceTree = SOURCE_ROOT; };
 		7448F1691FD08DCB0095B6B1 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = GpxExport/Models/Workout.swift; sourceTree = SOURCE_ROOT; };
 		7448F16C1FD08E130095B6B1 /* WorkoutsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutsTableViewController.swift; sourceTree = "<group>"; };
+		74543D09222BDE0700562086 /* HKWorkout+FitActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkout+FitActivity.swift"; sourceTree = "<group>"; };
 		74AC63E81FB844780028E37F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		76489E4F1F59A20200E4094E /* GpxExport.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GpxExport.entitlements; sourceTree = "<group>"; };
 		76FC8A641F59A0130062E8EF /* GpxExport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GpxExport.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				CDF81F5321F736D900A69B22 /* HKWorkout+Formatting.swift */,
+				74543D09222BDE0700562086 /* HKWorkout+FitActivity.swift */,
 				CDF81F5521F7387600A69B22 /* TimeInterval+Formatting.swift */,
 			);
 			path = Extensions;
@@ -313,6 +316,7 @@
 				76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */,
 				7448F16D1FD08E130095B6B1 /* WorkoutsTableViewController.swift in Sources */,
 				CDF81F5121F66E4100A69B22 /* WorkoutDetailTableViewController.swift in Sources */,
+				74543D0A222BDE0700562086 /* HKWorkout+FitActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

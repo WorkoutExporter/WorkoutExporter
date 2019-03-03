@@ -25,8 +25,8 @@ extension Workout {
             .appendingPathComponent(fileName)
             .appendingPathExtension("fit")
 
-            let time = FitTime(date: Date())
         DispatchQueue.global(qos: .background).sync {
+            let time = FitTime(date: self.startDate)
             let serial = ValidatedBinaryInteger(value: UInt32(123), valid: true)
 
             let file: FileHandle
@@ -56,16 +56,18 @@ extension Workout {
                 let encoder = FitFileEncoder(dataValidityStrategy: .garminConnect)
                 let data = try encoder.encode(fildIdMessage: self.createFileId(serial: serial, time: time, product: productId), messages: messages)
                 file.write(data)
+                file.synchronizeFile()
+                file.closeFile()
 
             } catch {
                 print(error)
             }
-        }
+       }
         return targetURL
     }
 
     func createActivityMessage() -> ActivityMessage {
-        let time = FitTime(date: Date())
+        let time = FitTime(date: startDate)
         let duration = Measurement(value: self.duration, unit: UnitDuration.seconds)
         let activity = ActivityMessage(timeStamp: time,
                                        totalTimerTime: duration,
@@ -126,7 +128,7 @@ extension Workout {
     }
 
     func createDeviceInfoMessage() -> FitMessage {
-        let time = FitTime(date: Date())
+        let time = FitTime(date: startDate)
         let serial = ValidatedBinaryInteger(value: UInt32(123), valid: true)
 
         let devinfo = DeviceInfoMessage(timeStamp: time, serialNumber: serial, cumulativeOpTime: nil, productName: nil,
@@ -140,7 +142,8 @@ extension Workout {
 
     func createSessionMessage(time: FitTime, position: Position, duration: Measurement<UnitDuration>) -> SessionMessage {
         let session = SessionMessage(timeStamp: time, messageIndex: nil, event: Event.session, eventType: EventType.start, startTime: time,
-                                     startPosition: position, sport: Sport.cycling, subSport: nil, totalElapsedTime: duration, totalTimerTime: nil,
+                                     startPosition: position, sport: self.antSport, subSport: nil,
+                                     totalElapsedTime: duration, totalTimerTime: nil,
                                      totalDistance: nil, totalCycles: nil,
                                      totalCalories: nil, totalFatCalories: nil, averageSpeed: nil, maximumSpeed: nil, averageHeartRate: nil,
                                      maximumHeartRate: nil, averageCadence: nil, maximumCadence: nil, averagePower: nil, maximumPower: nil,
