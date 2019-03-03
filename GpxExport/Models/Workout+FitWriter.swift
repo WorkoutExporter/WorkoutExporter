@@ -25,8 +25,8 @@ extension Workout {
             .appendingPathComponent(fileName)
             .appendingPathExtension("fit")
 
-        DispatchQueue.global(qos: .background).async {
             let time = FitTime(date: Date())
+        DispatchQueue.global(qos: .background).sync {
             let serial = ValidatedBinaryInteger(value: UInt32(123), valid: true)
 
             let file: FileHandle
