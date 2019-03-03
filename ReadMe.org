@@ -7,8 +7,11 @@
 
 ** Objective
 *** Export Workouts recorded by Apple Watch
-    For the time beeing workouts are exported into GPX files.
+    For the time beeing workouts are exported into GPX or ANT+ Fit files.
     Exported files could be imported to local or online fitness analytic software.
+
+    The GPX format is not only used by fitness analytic sites but is also frequently 
+    used in projects like Open Street Map.
 
     You can [[https://testflight.apple.com/join/rrTX2evp][join the Testflight beta]] now.
 ** Usage
