@@ -11,6 +11,7 @@ import HealthKit
 import CoreLocation
 import FitDataProtocol
 import FitnessUnits
+import AntMessageProtocol
 
 extension Workout {
     func writeFit() -> URL? {
@@ -25,6 +26,9 @@ extension Workout {
             .appendingPathExtension("fit")
 
         DispatchQueue.global(qos: .background).async {
+            let time = FitTime(date: Date())
+            let serial = ValidatedBinaryInteger(value: UInt32(123), valid: true)
+
             let file: FileHandle
 
             do {
@@ -39,13 +43,18 @@ extension Workout {
                 return
             }
 
+            let records = self.createRecords()
+            let productId = ValidatedBinaryInteger(value: UInt16(16), valid: true)
+
             var messages: [FitMessage] = []
             messages.append(self.createActivityMessage())
-            messages += self.createRecords()
-
+            messages.append(contentsOf: records)
+            messages.append(self.createSessionMessage(time: time, position: records.first!.position,
+                                                      duration: Measurement(value: self.duration, unit: UnitDuration.seconds)))
+            messages.append(self.createDeviceInfoMessage())
             do {
-                let encoder = FitFileEncoder(dataValidityStrategy: .none)
-                let data = try encoder.encode(fildIdMessage: self.createFileId(), messages: messages)
+                let encoder = FitFileEncoder(dataValidityStrategy: .garminConnect)
+                let data = try encoder.encode(fildIdMessage: self.createFileId(serial: serial, time: time, product: productId), messages: messages)
                 file.write(data)
 
             } catch {
@@ -61,20 +70,19 @@ extension Workout {
         let activity = ActivityMessage(timeStamp: time,
                                        totalTimerTime: duration,
                                        localTimeStamp: nil,
-                                       numberOfSessions: nil,
+                                       numberOfSessions: ValidatedBinaryInteger(value: 1, valid: true),
                                        activity: Activity.manual,
-                                       event: nil,
-                                       eventType: nil,
+                                       event: Event.activity,
+                                       eventType: EventType.start,
                                        eventGroup: nil)
         return activity
     }
 
-    func createFileId() -> FileIdMessage {
-        let time = FitTime(date: Date())
-        let fileId = FileIdMessage(deviceSerialNumber: nil,
+    func createFileId(serial: ValidatedBinaryInteger<UInt32>, time: FitTime, product: ValidatedBinaryInteger<UInt16>) -> FileIdMessage {
+        let fileId = FileIdMessage(deviceSerialNumber: serial,
                                    fileCreationDate: time,
-                                   manufacturer: .garmin,
-                                   product: nil,
+                                   manufacturer: .northPoleEngineering,
+                                   product: product,
                                    fileNumber: nil,
                                    fileType: FileType.activity,
                                    productName: nil)
@@ -82,7 +90,7 @@ extension Workout {
 
     }
 
-    func createRecords() -> [FitMessage] {
+    func createRecords() -> [RecordMessage] {
 
         var currentHeartrateIndex = 0
         var currentHeartrate: Double = -1
@@ -115,5 +123,38 @@ extension Workout {
             records.append(record)
         }
         return records
+    }
+
+    func createDeviceInfoMessage() -> FitMessage {
+        let time = FitTime(date: Date())
+        let serial = ValidatedBinaryInteger(value: UInt32(123), valid: true)
+
+        let devinfo = DeviceInfoMessage(timeStamp: time, serialNumber: serial, cumulativeOpTime: nil, productName: nil,
+                                        manufacturer: .northPoleEngineering, product: nil, softwareVersion: nil,
+                                        hardwareVersion: nil, batteryVoltage: nil, batteryStatus: nil, deviceNumber: nil,
+                                        deviceType: nil, deviceIndex: nil, sensorDescription: nil, bodylocation: nil,
+                                        transmissionType: nil, antNetwork: nil, source: nil)
+
+        return devinfo
+    }
+
+    func createSessionMessage(time: FitTime, position: Position, duration: Measurement<UnitDuration>) -> SessionMessage {
+        let session = SessionMessage(timeStamp: time, messageIndex: nil, event: Event.session, eventType: EventType.start, startTime: time,
+                                     startPosition: position, sport: Sport.cycling, subSport: nil, totalElapsedTime: duration, totalTimerTime: nil,
+                                     totalDistance: nil, totalCycles: nil,
+                                     totalCalories: nil, totalFatCalories: nil, averageSpeed: nil, maximumSpeed: nil, averageHeartRate: nil,
+                                     maximumHeartRate: nil, averageCadence: nil, maximumCadence: nil, averagePower: nil, maximumPower: nil,
+                                     totalAscent: nil, totalDescent: nil, totalTrainingEffect: nil, firstLapIndex: nil, numberOfLaps: nil,
+                                     eventGroup: nil, trigger: nil, necPosition: position, swcPosition: position, normalizedPower: nil,
+                                     averageStrokeDistance: nil, swimStroke: nil, poolLength: nil, poolLengthUnit: nil, thresholdPower: nil,
+                                     activeLengths: nil, totalWork: nil, averageAltitude: nil, maximumAltitude: nil, gpsAccuracy: nil,
+                                     averageGrade: nil, averagePositiveGrade: nil, averageNegitiveGrade: nil, maximumPositiveGrade: nil,
+                                     maximumNegitiveGrade: nil, averageTemperature: nil, maximumTemperature: nil, totalMovingTime: nil,
+                                     averagePositiveVerticalSpeed: nil, averageNegitiveVerticalSpeed: nil, maximumPositiveVerticalSpeed: nil,
+                                     maximumNegitiveVerticalSpeed: nil, minimumHeartRate: nil, averageLapTime: nil, bestLapIndex: nil,
+                                     minimumAltitude: nil, score: Score.nilSelf, opponentName: nil, maximumBallSpeed: nil, averageBallSpeed: nil,
+                                     averageVerticalOscillation: nil, averageStanceTime: StanceTime.nilSelf, sportIndex: nil,
+                                     averageAscentSpeed: nil)
+        return session
     }
 }
