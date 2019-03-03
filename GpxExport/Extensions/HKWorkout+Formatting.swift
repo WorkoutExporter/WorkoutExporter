@@ -47,6 +47,8 @@ extension HKWorkout {
             return NSLocalizedString("workout.activity.type.walking", comment: "Workout Activity Type: Walk")
         case .hiking:
             return NSLocalizedString("workout.activity.type.hiking", comment: "Workout Activity Type: Hike")
+        case .swimming:
+            return NSLocalizedString("workout.activity.type.swimming", comment: "Workout Activity Type: Swim")
         default:
             return NSLocalizedString("workout.activity.type.default", comment: "Workout Activity Type: Default - Workout")
         }
