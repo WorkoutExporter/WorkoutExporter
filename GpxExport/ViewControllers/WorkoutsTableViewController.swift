@@ -13,7 +13,6 @@ class WorkoutsTableViewController: UITableViewController {
         return WorkoutDataStore()
     }()
 
-    private let group = DispatchGroup()
     private var workouts: [HKWorkout]?
     private var tableSections: [String]?
     private var workoutSections = [String: [HKWorkout]]()
@@ -108,6 +107,7 @@ class WorkoutsTableViewController: UITableViewController {
         guard let selectedWorkouts = tableView.indexPathsForSelectedRows else { return }
 
         var workouts = [Workout]()
+        let group = DispatchGroup()
 
         for index in selectedWorkouts {
             if let section = tableSections?[index.section], let workout = workoutSections[section]?[index.row] {
@@ -125,7 +125,7 @@ class WorkoutsTableViewController: UITableViewController {
                         }
 
                         workouts.append(Workout(workout: workout, route: locations, heartRate: heartRateSamples))
-                        self.group.leave()
+                        group.leave()
                     }
                 }
             }
@@ -135,18 +135,27 @@ class WorkoutsTableViewController: UITableViewController {
 
         var targetURLs = [URL]()
 
+        let fileExportGroup = DispatchGroup()
+
         for workout in workouts {
-            if let targetURL = workout.writeFile(format) {
-                targetURLs.append(targetURL)
+            fileExportGroup.enter()
+            workout.writeFile(format) { targetURL in
+                if let targetURL = targetURL {
+                    targetURLs.append(targetURL)
+                }
+
+                fileExportGroup.leave()
             }
         }
 
-        if targetURLs.count > 0 {
-            let activityViewController = UIActivityViewController(activityItems: targetURLs, applicationActivities: nil)
-            if let popoverPresentationController = activityViewController.popoverPresentationController {
-                popoverPresentationController.barButtonItem = nil
+        fileExportGroup.notify(queue: .main) {
+            if targetURLs.count > 0 {
+                let activityViewController = UIActivityViewController(activityItems: targetURLs, applicationActivities: nil)
+                if let popoverPresentationController = activityViewController.popoverPresentationController {
+                    popoverPresentationController.barButtonItem = nil
+                }
+                self.present(activityViewController, animated: true)
             }
-            self.present(activityViewController, animated: true)
         }
     }
 

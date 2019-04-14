@@ -14,8 +14,7 @@ import FitnessUnits
 import AntMessageProtocol
 
 extension Workout {
-    func writeFit() -> URL? {
-
+    func writeFit(completionHandler: @escaping(_ url: URL?) -> Void) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH.mm.ss"
 
@@ -40,6 +39,11 @@ extension Workout {
                 file = try FileHandle(forWritingTo: targetURL)
             } catch let err {
                 print(err)
+
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+
                 return
             }
 
@@ -49,7 +53,8 @@ extension Workout {
             var messages: [FitMessage] = []
             messages.append(self.createActivityMessage())
             messages.append(contentsOf: records)
-            messages.append(self.createSessionMessage(time: time, position: records.first!.position,
+            messages.append(self.createSessionMessage(time: time,
+                                                      position: records.first!.position,
                                                       duration: Measurement(value: self.duration, unit: UnitDuration.seconds)))
             messages.append(self.createDeviceInfoMessage())
             do {
@@ -59,11 +64,17 @@ extension Workout {
                 file.synchronizeFile()
                 file.closeFile()
 
+                DispatchQueue.main.async {
+                    completionHandler(targetURL)
+                }
             } catch {
                 print(error)
+
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
             }
        }
-        return targetURL
     }
 
     func createActivityMessage() -> ActivityMessage {
@@ -89,11 +100,9 @@ extension Workout {
                                    fileType: FileType.activity,
                                    productName: nil)
         return fileId
-
     }
 
     func createRecords() -> [RecordMessage] {
-
         var currentHeartrateIndex = 0
         var currentHeartrate: Double = -1
         let bpmUnit = HKUnit(from: "count/min")

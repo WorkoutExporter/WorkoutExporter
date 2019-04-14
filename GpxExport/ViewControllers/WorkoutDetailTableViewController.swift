@@ -104,8 +104,7 @@ class WorkoutDetailTableViewController: UITableViewController {
         averageHeartRateLabel.text = nil
     }
 
-    @IBAction func sharingAsGPX(_ sender: UIBarButtonItem) {
-
+    @IBAction func shouldShowSharingDialog(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: NSLocalizedString("actionSheet.formatSelection.title", comment: "Format Selection Title"),
                                       message: NSLocalizedString("actionSheet.formatSelection.content", comment: "Format Selection Content"),
                                       preferredStyle: .actionSheet)
@@ -119,19 +118,18 @@ class WorkoutDetailTableViewController: UITableViewController {
         }))
 
         self.present(alert, animated: true)
-
     }
 
     func handlingAction(_ fileType: ExportFileType, barButtonItem: UIBarButtonItem) {
-        guard let targetURL = workout?.writeFile(fileType) else { return }
+        workout?.writeFile(fileType, completionHandler: { [weak self] (targetURL) in
+            let activityViewController = UIActivityViewController(activityItems: [targetURL], applicationActivities: nil)
 
-        let activityViewController = UIActivityViewController(activityItems: [targetURL], applicationActivities: nil)
+            if let popoverPresentationController = activityViewController.popoverPresentationController {
+                popoverPresentationController.barButtonItem = barButtonItem
+            }
 
-        if let popoverPresentationController = activityViewController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = barButtonItem
-        }
-
-        self.present(activityViewController, animated: true)
+            self?.present(activityViewController, animated: true)
+        })
     }
 }
 
