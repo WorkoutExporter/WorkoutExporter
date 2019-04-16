@@ -94,10 +94,11 @@ struct Workout {
         self.hkWorkout = workout
     }
 
-    func writeFile(_ format: ExportFileType) -> URL? {
+    func writeFile(_ format: ExportFileType, completionHandler: @escaping(_ url: URL?) -> Void) {
         if format == .fit {
-            return writeFit()
+            writeFit(completionHandler: completionHandler)
+        } else {
+            writeGPX(completionHandler: completionHandler)
         }
-        return writeGPX()
     }
 }

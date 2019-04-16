@@ -11,7 +11,7 @@ import HealthKit
 import CoreLocation
 
 extension Workout {
-    func writeGPX() -> URL? {
+    func writeGPX(completionHandler: @escaping(_ url: URL?) -> Void) {
         var currentHeartrateIndex = 0
         var currentHeartrate: Double = -1
         let bpmUnit = HKUnit(from: "count/min")
@@ -38,6 +38,10 @@ extension Workout {
                 file = try FileHandle(forWritingTo: targetURL)
             } catch let err {
                 print(err)
+
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
                 return
             }
 
@@ -46,7 +50,7 @@ extension Workout {
             }
 
             for location in self.route {
-                while (currentHeartrateIndex < self.self.heartRate.count) && (location.timestamp > self.heartRate[currentHeartrateIndex].startDate) {
+                while (currentHeartrateIndex < self.heartRate.count) && (location.timestamp > self.heartRate[currentHeartrateIndex].startDate) {
                     currentHeartrate = self.heartRate[currentHeartrateIndex].quantity.doubleValue(for: bpmUnit)
                     currentHeartrateIndex += 1
                     heartrateString = self.gpxHeartRate(currentHeartrate)
@@ -55,16 +59,17 @@ extension Workout {
                     file.write(trackpoint)
                 }
             }
-            file.write("""
-  </trkseg>
-  </trk>
-  </gpx>
 
-  """.data(using: .utf8)!)
+            if let footerData = self.gpxFooter().data(using: .utf8) {
+                file.write(footerData)
+            }
+
             file.closeFile()
-        }
-        return targetURL
 
+            DispatchQueue.main.async {
+                completionHandler(targetURL)
+            }
+        }
     }
 
     private func gpxTrackPoint(location: CLLocation, heartrate: String) -> String {
@@ -110,5 +115,14 @@ extension Workout {
 
         """
         // swiftlint:enable line_length
+    }
+
+    private func gpxFooter() -> String {
+        return """
+        </trkseg>
+        </trk>
+        </gpx>
+
+        """
     }
 }
