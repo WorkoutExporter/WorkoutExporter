@@ -96,10 +96,13 @@ class WorkoutsTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "GPX", style: .default, handler: {(_: UIAlertAction) in
             self.handleExport(.gpx)
         }))
+
         alert.addAction(UIAlertAction(title: "Fit", style: .default, handler: {(_: UIAlertAction) in
             //Sign out action
             self.handleExport(.fit)
         }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
         self.present(alert, animated: true)
     }
