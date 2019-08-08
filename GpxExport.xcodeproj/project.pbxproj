@@ -19,7 +19,6 @@
 		76FC8A681F59A0130062E8EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC8A671F59A0130062E8EF /* AppDelegate.swift */; };
 		76FC8A6D1F59A0130062E8EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6B1F59A0130062E8EF /* Main.storyboard */; };
 		76FC8A6F1F59A0130062E8EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76FC8A6E1F59A0130062E8EF /* Assets.xcassets */; };
-		76FC8A7D1F59A0B10062E8EF /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76FC8A7C1F59A0B10062E8EF /* WatchKit.framework */; };
 		CD44186C2202CFA0007CE518 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD44186B2202CF9F007CE518 /* LaunchScreen.storyboard */; };
 		CD4418702202D180007CE518 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD4418722202D180007CE518 /* Localizable.strings */; };
 		CD5D20A321FB824D0008DDA5 /* WorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD5D20A221FB824D0008DDA5 /* WorkoutTableViewCell.xib */; };
@@ -65,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76FC8A7D1F59A0B10062E8EF /* WatchKit.framework in Frameworks */,
 				74AC63E91FB844780028E37F /* HealthKit.framework in Frameworks */,
 				175B02D6AF4B477C05308801 /* libPods-GpxExport.a in Frameworks */,
 			);
@@ -213,7 +211,7 @@
 				TargetAttributes = {
 					76FC8A631F59A0130062E8EF = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
@@ -470,7 +468,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = at.helmsdeep.WorkoutGpxExport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -487,7 +485,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = at.helmsdeep.WorkoutGpxExport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

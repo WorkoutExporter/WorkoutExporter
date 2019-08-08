@@ -112,16 +112,21 @@ class WorkoutDetailTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "GPX", style: .default, handler: {(_: UIAlertAction) in
             self.handlingAction(.gpx, barButtonItem: sender)
         }))
+        
         alert.addAction(UIAlertAction(title: "Fit", style: .default, handler: {(_: UIAlertAction) in
             //Sign out action
             self.handlingAction(.fit, barButtonItem: sender)
         }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
         self.present(alert, animated: true)
     }
 
     func handlingAction(_ fileType: ExportFileType, barButtonItem: UIBarButtonItem) {
         workout?.writeFile(fileType, completionHandler: { [weak self] (targetURL) in
+            guard let targetURL = targetURL else { return }
+
             let activityViewController = UIActivityViewController(activityItems: [targetURL], applicationActivities: nil)
 
             if let popoverPresentationController = activityViewController.popoverPresentationController {

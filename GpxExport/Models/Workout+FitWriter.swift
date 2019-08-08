@@ -57,9 +57,12 @@ extension Workout {
                                                       position: records.first!.position,
                                                       duration: Measurement(value: self.duration, unit: UnitDuration.seconds)))
             messages.append(self.createDeviceInfoMessage())
-            do {
-                let encoder = FitFileEncoder(dataValidityStrategy: .garminConnect)
-                let data = try encoder.encode(fildIdMessage: self.createFileId(serial: serial, time: time, product: productId), messages: messages)
+
+            let encoder = FitFileEncoder(dataValidityStrategy: .garminConnect)
+            let result = encoder.encode(fildIdMessage: self.createFileId(serial: serial, time: time, product: productId), messages: messages)
+
+            switch result {
+            case .success(let data):
                 file.write(data)
                 file.synchronizeFile()
                 file.closeFile()
@@ -67,7 +70,7 @@ extension Workout {
                 DispatchQueue.main.async {
                     completionHandler(targetURL)
                 }
-            } catch {
+            case .failure(let error):
                 print(error)
 
                 DispatchQueue.main.async {
