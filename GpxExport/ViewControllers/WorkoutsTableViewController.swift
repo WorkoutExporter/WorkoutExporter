@@ -246,12 +246,24 @@ class WorkoutsTableViewController: UITableViewController {
         cell.durationLabel.text = workout.duration.formatted
 
         switch workout.workoutActivityType {
-        case .running: cell.imageLabel.image = #imageLiteral(resourceName: "Run")
-        case .cycling: cell.imageLabel.image = #imageLiteral(resourceName: "Cycle")
-        case .swimming: cell.imageLabel.image = #imageLiteral(resourceName: "Swim")
-        case .walking: cell.imageLabel.image = #imageLiteral(resourceName: "Still")
-        case .hiking: cell.imageLabel.image = #imageLiteral(resourceName: "Hike")
-        default: cell.imageLabel.image = #imageLiteral(resourceName: "Default")
+        case .running:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Run")
+        case .cycling:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Cycle")
+        case .swimming:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Swim")
+        case .walking:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Still")
+        case .hiking:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Hike")
+        default:
+            cell.imageLabel.image = #imageLiteral(resourceName: "Default")
+        }
+
+        if #available(iOS 13.0, *) {
+            cell.imageLabel.tintColor = .label
+        } else {
+            cell.imageLabel.tintColor = .black
         }
     }
 
